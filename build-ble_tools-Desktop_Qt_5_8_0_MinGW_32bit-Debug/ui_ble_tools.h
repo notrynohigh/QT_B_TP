@@ -16,7 +16,7 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -34,7 +34,7 @@ public:
     QWidget *centralWidget;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
-    QListView *listView;
+    QListWidget *listWidget;
     QPushButton *scan;
     QPushButton *clear_list;
     QWidget *layoutWidget1;
@@ -50,7 +50,7 @@ public:
     {
         if (BLE_TOOLS->objectName().isEmpty())
             BLE_TOOLS->setObjectName(QStringLiteral("BLE_TOOLS"));
-        BLE_TOOLS->resize(1038, 628);
+        BLE_TOOLS->resize(773, 636);
         centralWidget = new QWidget(BLE_TOOLS);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         layoutWidget = new QWidget(centralWidget);
@@ -61,10 +61,10 @@ public:
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        listView = new QListView(layoutWidget);
-        listView->setObjectName(QStringLiteral("listView"));
+        listWidget = new QListWidget(layoutWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
 
-        verticalLayout->addWidget(listView);
+        verticalLayout->addWidget(listWidget);
 
         scan = new QPushButton(layoutWidget);
         scan->setObjectName(QStringLiteral("scan"));
@@ -97,11 +97,11 @@ public:
 
         uartRecText = new QTextEdit(centralWidget);
         uartRecText->setObjectName(QStringLiteral("uartRecText"));
-        uartRecText->setGeometry(QRect(510, 100, 431, 431));
+        uartRecText->setGeometry(QRect(330, 80, 421, 471));
         BLE_TOOLS->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BLE_TOOLS);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1038, 23));
+        menuBar->setGeometry(QRect(0, 0, 773, 23));
         BLE_TOOLS->setMenuBar(menuBar);
         mainToolBar = new QToolBar(BLE_TOOLS);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

@@ -28,13 +28,17 @@ SOURCES += main.cpp\
     b_tp/src/b_tp.c \
     b_tp/check/crc16/crc16.c \
     b_tp/b_tp_port/b_tp_port.c \
-    uartclass.cpp
+    uartclass.cpp \
+    tcmd/tool_cmd.c \
+    bledev.cpp
 
 HEADERS  += ble_tools.h \
     b_tp/inc/b_tp.h \
     b_tp/check/crc16/crc16.h \
     b_tp/b_tp_port/b_tp_config.h \
     b_tp/b_tp_port/b_tp_port.h \
-    uartclass.h
+    uartclass.h \
+    tcmd/tool_cmd.h \
+    bledev.h
 
 FORMS    += ble_tools.ui

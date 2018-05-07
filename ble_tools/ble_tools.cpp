@@ -7,12 +7,16 @@
 #include <qtimer.h>
 #include <qthread.h>
 #include "uartclass.h"
+#include "tcmd/tool_cmd.h"
+#include "bledev.h"
+#include <qlistwidget.h>
+
 
 extern "C" void b_tp_port_uart_send(uint8_t *pbuf, uint32_t len);
 extern "C" void b_tp_callback(uint8_t *pbuf, uint32_t len);
 
 uartClass uartMode;
-
+bleDev  bleDevMode;
 BLE_TOOLS *tmpClass;
 
 BLE_TOOLS::BLE_TOOLS(QWidget *parent) :
@@ -61,12 +65,25 @@ void BLE_TOOLS::on_opencom_clicked()
 
 void BLE_TOOLS::on_scan_clicked()
 {
-    uartMode.uartB_TP_Send((uint8_t *)"hello world", 11);
+    if(uartMode.uartGetOpenStatus())
+    {
+        if(ui->scan->text() == "Scan")
+        {
+            ui->scan->setText("Stop");
+            tc_scan_start();
+        }
+        else
+        {
+            ui->scan->setText("Scan");
+            tc_scan_stop();
+        }
+    }
 }
 
 void BLE_TOOLS::on_timer_timeout()
 {
     uint32_t len;
+    uint32_t i;
     len = uartMode.uartReadBuff(&recTable[recDataLen]);
     if(len > 0)
     {
@@ -75,9 +92,20 @@ void BLE_TOOLS::on_timer_timeout()
     else if(recDataLen > 0)
     {
         textShowData(recTable, recDataLen);
-        if(recDataLen <= 20)
+        if(recDataLen <= B_TP_MTU)
         {
             b_tp_receive_data(recTable, recDataLen);
+        }
+        else
+        {
+            for(i = 0;i < (recDataLen / B_TP_MTU); i++)
+            {
+                b_tp_receive_data(&recTable[i * B_TP_MTU], B_TP_MTU);
+            }
+            if(recDataLen % B_TP_MTU)
+            {
+                b_tp_receive_data(&recTable[i * B_TP_MTU], (recDataLen % B_TP_MTU));
+            }
         }
         recDataLen = 0;
     }
@@ -103,13 +131,63 @@ void BLE_TOOLS::textShowData(uint8_t *pbuf, uint32_t len)
 void b_tp_port_uart_send(uint8_t *pbuf, uint32_t len)
 {
     uartMode.uartSendBuff(pbuf, len);
-    QThread::msleep(100);
+}
+
+void BLE_TOOLS::uiUpdateList(QString str)
+{
+    ui->listWidget->addItem(str);
 }
 
 
 void b_tp_callback(uint8_t *pbuf, uint32_t len)
 {
     tmpClass->textShowData(pbuf, len);
+
+    bleDevInfo_t dev;
+
+
+    uint8_t off = STRUCT_OFF(tcmd_struct_t, buf);
+    if(len < off)
+    {
+        return;
+    }
+
+    tcmd_struct_t *result = (tcmd_struct_t *)pbuf;
+    switch (result->cmd) {
+    case CMD_TOOL_SCAN:
+        {
+        pro_scan_response_t *resp = (pro_scan_response_t *)(result->buf);
+        memcpy(dev.addr, resp->addr, 6);
+        dev.rssi = resp->rssi;
+        memcpy(dev.name, resp->name, 16);
+        if(bleDevMode.bleAddDev(dev))
+        {
+            QString str;
+            str = QString::fromLocal8Bit((const char *)resp->name, -1);
+            tmpClass->uiUpdateList(str);
+        }
+
+        }
+        break;
+    default:
+        {
+            tc_send(CMD_TOOL_SCAN, CMD_STATUS_UNKNOWN, NULL, 0);
+        }
+        break;
+    }
+
+
 }
+
+
+
+void BLE_TOOLS::on_clear_list_clicked()
+{
+    if(bleDevMode.clear())
+    {
+        ui->listWidget->clear();
+    }
+}
+
 
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1038</width>
-    <height>628</height>
+    <width>773</width>
+    <height>636</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QListView" name="listView"/>
+      <widget class="QListWidget" name="listWidget"/>
      </item>
      <item>
       <widget class="QPushButton" name="scan">
@@ -72,10 +72,10 @@
    <widget class="QTextEdit" name="uartRecText">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>100</y>
-      <width>431</width>
-      <height>431</height>
+      <x>330</x>
+      <y>80</y>
+      <width>421</width>
+      <height>471</height>
      </rect>
     </property>
    </widget>
@@ -85,7 +85,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1038</width>
+     <width>773</width>
      <height>23</height>
     </rect>
    </property>

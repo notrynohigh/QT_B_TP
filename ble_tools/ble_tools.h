@@ -20,10 +20,13 @@ public:
     quint8  recTable[256];
 
     void textShowData(uint8_t *pbuf, uint32_t len);
+    void uiUpdateList(QString str);
 private slots:
     void on_opencom_clicked();
     void on_scan_clicked();
     void on_timer_timeout();
+    void on_clear_list_clicked();
+
 private:
     Ui::BLE_TOOLS *ui;
     QTimer *quartTimer;
