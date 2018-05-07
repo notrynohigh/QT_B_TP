@@ -21,6 +21,7 @@ public:
 
     void textShowData(uint8_t *pbuf, uint32_t len);
     void uiUpdateList(QString str);
+    void uiUpdateList(int index, QString str);
 private slots:
     void on_opencom_clicked();
     void on_scan_clicked();

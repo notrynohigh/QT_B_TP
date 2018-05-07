@@ -138,6 +138,12 @@ void BLE_TOOLS::uiUpdateList(QString str)
     ui->listWidget->addItem(str);
 }
 
+void BLE_TOOLS::uiUpdateList(int index, QString str)
+{
+    ui->listWidget->takeItem(index);
+    ui->listWidget->addItem(str);
+}
+
 
 void b_tp_callback(uint8_t *pbuf, uint32_t len)
 {
@@ -156,16 +162,32 @@ void b_tp_callback(uint8_t *pbuf, uint32_t len)
     switch (result->cmd) {
     case CMD_TOOL_SCAN:
         {
+        QString str, str2, str3;
+        int index = 0;
         pro_scan_response_t *resp = (pro_scan_response_t *)(result->buf);
         memcpy(dev.addr, resp->addr, 6);
         dev.rssi = resp->rssi;
         memcpy(dev.name, resp->name, 16);
-        if(bleDevMode.bleAddDev(dev))
+
+        str = QString::fromLocal8Bit((const char *)resp->name, -1) + "    ";
+        str += QString("%1").arg(resp->rssi) + "    ";
+        str2 = QByteArray::fromRawData((const char *)(resp->addr), 6).toHex().data();
+        for(int i = 0;i < str2.length();i += 2)
         {
-            QString str;
-            str = QString::fromLocal8Bit((const char *)resp->name, -1);
+            str3 = str2.mid(i, 2) + ':';
+            str += str3;
+        }
+
+        if(-1 == (index = bleDevMode.bleFindDevIndex(dev)))
+        {
             tmpClass->uiUpdateList(str);
         }
+        else
+        {
+            tmpClass->uiUpdateList(index, str);
+        }
+
+        bleDevMode.bleAddDev(dev);
 
         }
         break;
@@ -186,6 +208,7 @@ void BLE_TOOLS::on_clear_list_clicked()
     if(bleDevMode.clear())
     {
         ui->listWidget->clear();
+        ui->uartRecText->clear();
     }
 }
 

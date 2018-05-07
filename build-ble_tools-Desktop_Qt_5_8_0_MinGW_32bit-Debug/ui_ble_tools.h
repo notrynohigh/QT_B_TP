@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QListWidget>
@@ -23,7 +24,6 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -33,15 +33,15 @@ class Ui_BLE_TOOLS
 public:
     QWidget *centralWidget;
     QWidget *layoutWidget;
-    QVBoxLayout *verticalLayout;
-    QListWidget *listWidget;
-    QPushButton *scan;
-    QPushButton *clear_list;
-    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout;
     QComboBox *COMx;
     QPushButton *opencom;
+    QWidget *widget;
+    QGridLayout *gridLayout;
+    QListWidget *listWidget;
     QTextEdit *uartRecText;
+    QPushButton *scan;
+    QPushButton *clear_list;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -50,58 +50,63 @@ public:
     {
         if (BLE_TOOLS->objectName().isEmpty())
             BLE_TOOLS->setObjectName(QStringLiteral("BLE_TOOLS"));
-        BLE_TOOLS->resize(773, 636);
+        BLE_TOOLS->resize(768, 637);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/Icon/resources/ble_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        BLE_TOOLS->setWindowIcon(icon);
         centralWidget = new QWidget(BLE_TOOLS);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(20, 80, 301, 471));
-        verticalLayout = new QVBoxLayout(layoutWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        listWidget = new QListWidget(layoutWidget);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-
-        verticalLayout->addWidget(listWidget);
-
-        scan = new QPushButton(layoutWidget);
-        scan->setObjectName(QStringLiteral("scan"));
-
-        verticalLayout->addWidget(scan);
-
-        clear_list = new QPushButton(layoutWidget);
-        clear_list->setObjectName(QStringLiteral("clear_list"));
-
-        verticalLayout->addWidget(clear_list);
-
-        layoutWidget1 = new QWidget(centralWidget);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(60, 10, 221, 31));
-        horizontalLayout = new QHBoxLayout(layoutWidget1);
+        layoutWidget->setGeometry(QRect(60, 10, 221, 31));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        COMx = new QComboBox(layoutWidget1);
+        COMx = new QComboBox(layoutWidget);
         COMx->setObjectName(QStringLiteral("COMx"));
         COMx->setEnabled(true);
 
         horizontalLayout->addWidget(COMx);
 
-        opencom = new QPushButton(layoutWidget1);
+        opencom = new QPushButton(layoutWidget);
         opencom->setObjectName(QStringLiteral("opencom"));
 
         horizontalLayout->addWidget(opencom);
 
-        uartRecText = new QTextEdit(centralWidget);
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(21, 80, 721, 481));
+        gridLayout = new QGridLayout(widget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        listWidget = new QListWidget(widget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+
+        gridLayout->addWidget(listWidget, 0, 0, 1, 1);
+
+        uartRecText = new QTextEdit(widget);
         uartRecText->setObjectName(QStringLiteral("uartRecText"));
-        uartRecText->setGeometry(QRect(330, 80, 421, 471));
+
+        gridLayout->addWidget(uartRecText, 0, 1, 3, 1);
+
+        scan = new QPushButton(widget);
+        scan->setObjectName(QStringLiteral("scan"));
+
+        gridLayout->addWidget(scan, 1, 0, 1, 1);
+
+        clear_list = new QPushButton(widget);
+        clear_list->setObjectName(QStringLiteral("clear_list"));
+
+        gridLayout->addWidget(clear_list, 2, 0, 1, 1);
+
         BLE_TOOLS->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BLE_TOOLS);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 773, 23));
+        menuBar->setGeometry(QRect(0, 0, 768, 23));
         BLE_TOOLS->setMenuBar(menuBar);
         mainToolBar = new QToolBar(BLE_TOOLS);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -118,9 +123,9 @@ public:
     void retranslateUi(QMainWindow *BLE_TOOLS)
     {
         BLE_TOOLS->setWindowTitle(QApplication::translate("BLE_TOOLS", "BLE_TOOLS", Q_NULLPTR));
+        opencom->setText(QApplication::translate("BLE_TOOLS", "Open", Q_NULLPTR));
         scan->setText(QApplication::translate("BLE_TOOLS", "Scan", Q_NULLPTR));
         clear_list->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));
-        opencom->setText(QApplication::translate("BLE_TOOLS", "Open", Q_NULLPTR));
     } // retranslateUi
 
 };

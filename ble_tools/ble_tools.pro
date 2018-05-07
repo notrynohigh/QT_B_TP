@@ -42,3 +42,6 @@ HEADERS  += ble_tools.h \
     bledev.h
 
 FORMS    += ble_tools.ui
+
+RESOURCES += \
+    icon.qrc

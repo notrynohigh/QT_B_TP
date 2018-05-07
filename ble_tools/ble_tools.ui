@@ -6,43 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>773</width>
-    <height>636</height>
+    <width>768</width>
+    <height>637</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>BLE_TOOLS</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="icon.qrc">
+    <normaloff>:/Icon/resources/ble_icon.png</normaloff>:/Icon/resources/ble_icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>80</y>
-      <width>301</width>
-      <height>471</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QListWidget" name="listWidget"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="scan">
-       <property name="text">
-        <string>Scan</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="clear_list">
-       <property name="text">
-        <string>Clear</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -69,15 +44,37 @@
      </item>
     </layout>
    </widget>
-   <widget class="QTextEdit" name="uartRecText">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>21</x>
       <y>80</y>
-      <width>421</width>
-      <height>471</height>
+      <width>721</width>
+      <height>481</height>
      </rect>
     </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QListWidget" name="listWidget"/>
+     </item>
+     <item row="0" column="1" rowspan="3">
+      <widget class="QTextEdit" name="uartRecText"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="scan">
+       <property name="text">
+        <string>Scan</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="clear_list">
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -85,7 +82,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>773</width>
+     <width>768</width>
      <height>23</height>
     </rect>
    </property>
@@ -101,6 +98,8 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icon.qrc"/>
+ </resources>
  <connections/>
 </ui>

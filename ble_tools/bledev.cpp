@@ -9,7 +9,24 @@ bleDev::bleDev()
     bleDevNumber = 0;
 }
 
-bleDevList_t * bleDev::bleFindDev(bleDevInfo_t dev)
+int bleDev::bleFindDevIndex(bleDevInfo_t dev)
+{
+    bleDevList_t *p = &devListHead;
+    int i = 0;
+    while(p->pnext != nullptr)
+    {
+        p = p->pnext;
+        if(0 == strncmp((const char *)(p->devInfo.addr), (const char *)(dev.addr), 6))
+        {
+            return i;
+        }
+        i++;
+    }
+    return -1;
+}
+
+
+bleDevList_t * bleDev::bleFindFromList(bleDevInfo_t dev)
 {
     bleDevList_t *p = &devListHead;
     while(p->pnext != nullptr)
@@ -23,17 +40,18 @@ bleDevList_t * bleDev::bleFindDev(bleDevInfo_t dev)
     return nullptr;
 }
 
-bool bleDev::bleAddDev(bleDevInfo_t dev)
+
+void bleDev::bleAddDev(bleDevInfo_t dev)
 {
     bleDevList_t *ptmp = nullptr;
     bleDevList_t *p = &devListHead;
     bool retval = false;
     if(lockFlag)
     {
-        return false;
+        return;
     }
     lockFlag = true;
-    ptmp = bleFindDev(dev);
+    ptmp = bleFindFromList(dev);
     if(ptmp != nullptr)
     {
         memcpy(&(ptmp->devInfo), &dev, sizeof(bleDevInfo_t));
@@ -53,10 +71,8 @@ bool bleDev::bleAddDev(bleDevInfo_t dev)
             memcpy(&(ptmp->devInfo), &dev, sizeof(bleDevInfo_t));
             bleDevNumber++;
         }
-        retval = true;
     }
     lockFlag = false;
-    return retval;
 }
 
 void bleDev::bleDelDev(bleDevInfo_t dev)
@@ -67,7 +83,7 @@ void bleDev::bleDelDev(bleDevInfo_t dev)
         return;
     }
     lockFlag = true;
-    ptmp = bleFindDev(dev);
+    ptmp = bleFindFromList(dev);
     if(ptmp != nullptr)
     {
         ptmp->prev->pnext = ptmp->pnext;

@@ -21,9 +21,12 @@ class bleDev
 {
 public:
     bleDev();
-    bool bleAddDev(bleDevInfo_t dev);
+    void bleAddDev(bleDevInfo_t dev);
     void bleDelDev(bleDevInfo_t dev);
-    bleDevList_t *bleFindDev(bleDevInfo_t dev);
+
+    int bleFindDevIndex(bleDevInfo_t dev);
+    bleDevList_t * bleFindFromList(bleDevInfo_t dev);
+
     uint32_t getBleDevNumber();
     bleDevInfo_t * getBleDev(uint32_t index);
     bool clear();
