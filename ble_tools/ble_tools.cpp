@@ -109,6 +109,15 @@ void BLE_TOOLS::on_timer_timeout()
         }
         recDataLen = 0;
     }
+
+    static uint32_t time20ms_count = 0;
+    time20ms_count++;
+    if(time20ms_count > 50)
+    {
+        time20ms_count = 0;
+        updateBleDevList();
+    }
+
 }
 
 void BLE_TOOLS::textShowData(uint8_t *pbuf, uint32_t len)
@@ -133,62 +142,47 @@ void b_tp_port_uart_send(uint8_t *pbuf, uint32_t len)
     uartMode.uartSendBuff(pbuf, len);
 }
 
-void BLE_TOOLS::uiUpdateList(QString str)
-{
-    ui->listWidget->addItem(str);
-}
 
-void BLE_TOOLS::uiUpdateList(int index, QString str)
+
+void BLE_TOOLS::updateBleDevList()
 {
-    ui->listWidget->takeItem(index);
-    ui->listWidget->addItem(str);
+    bleDevInfo_t dev, *pdev;
+    ui->listWidget->clear();
+    uint32_t number = bleDevMode.getBleDevNumber();
+    uint32_t i = 0;
+
+    for(i = 0;i < number;i++)
+    {
+        pdev = bleDevMode.getBleDev(i);
+        if(pdev != nullptr)
+        {
+            memcpy(&dev, pdev, sizeof(bleDevInfo_t));
+            QString str = bleDevMode.getBleDevInfoStr(dev);
+            ui->listWidget->addItem(str);
+        }
+    }
 }
 
 
 void b_tp_callback(uint8_t *pbuf, uint32_t len)
 {
     tmpClass->textShowData(pbuf, len);
-
     bleDevInfo_t dev;
-
-
     uint8_t off = STRUCT_OFF(tcmd_struct_t, buf);
     if(len < off)
     {
         return;
     }
-
     tcmd_struct_t *result = (tcmd_struct_t *)pbuf;
+
     switch (result->cmd) {
     case CMD_TOOL_SCAN:
         {
-        QString str, str2, str3;
-        int index = 0;
-        pro_scan_response_t *resp = (pro_scan_response_t *)(result->buf);
-        memcpy(dev.addr, resp->addr, 6);
-        dev.rssi = resp->rssi;
-        memcpy(dev.name, resp->name, 16);
-
-        str = QString::fromLocal8Bit((const char *)resp->name, -1) + "    ";
-        str += QString("%1").arg(resp->rssi) + "    ";
-        str2 = QByteArray::fromRawData((const char *)(resp->addr), 6).toHex().data();
-        for(int i = 0;i < str2.length();i += 2)
-        {
-            str3 = str2.mid(i, 2) + ':';
-            str += str3;
-        }
-
-        if(-1 == (index = bleDevMode.bleFindDevIndex(dev)))
-        {
-            tmpClass->uiUpdateList(str);
-        }
-        else
-        {
-            tmpClass->uiUpdateList(index, str);
-        }
-
-        bleDevMode.bleAddDev(dev);
-
+            pro_scan_response_t *resp = (pro_scan_response_t *)(result->buf);
+            memcpy(dev.addr, resp->addr, 6);
+            dev.rssi = resp->rssi;
+            memcpy(dev.name, resp->name, 16);
+            bleDevMode.bleAddDev(dev);
         }
         break;
     default:

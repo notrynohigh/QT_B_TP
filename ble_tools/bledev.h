@@ -2,6 +2,7 @@
 #define BLEDEV_H
 
 #include "stdint.h"
+#include "qstring.h"
 
 typedef struct
 {
@@ -30,6 +31,9 @@ public:
     uint32_t getBleDevNumber();
     bleDevInfo_t * getBleDev(uint32_t index);
     bool clear();
+
+    QString getBleDevInfoStr(bleDevInfo_t dev);
+
 private:
     bool lockFlag = false;
     bleDevList_t devListHead;
