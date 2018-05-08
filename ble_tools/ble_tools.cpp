@@ -26,7 +26,8 @@ BLE_TOOLS::BLE_TOOLS(QWidget *parent) :
     ui->setupUi(this);
 
     quartTimer = new QTimer(this);
-    connect(quartTimer, SIGNAL(timeout()), this, SLOT(on_timer_timeout()));
+    quartTimer->setSingleShot(true);
+    connect(quartTimer, SIGNAL(timeout()), this, SLOT(timer_timeout()));
     quartTimer->start(20);
 
     ui->COMx->addItems(uartMode.uartComAvailable);
@@ -38,11 +39,13 @@ BLE_TOOLS::BLE_TOOLS(QWidget *parent) :
 
 BLE_TOOLS::~BLE_TOOLS()
 {
-    delete ui;
+
     if(uartMode.uartGetOpenStatus())
     {
         uartMode.uartClosePort();
     }
+    bleDevMode.clear();
+    delete ui;
 }
 
 void BLE_TOOLS::on_opencom_clicked()
@@ -80,7 +83,7 @@ void BLE_TOOLS::on_scan_clicked()
     }
 }
 
-void BLE_TOOLS::on_timer_timeout()
+void BLE_TOOLS::timer_timeout()
 {
     uint32_t len;
     uint32_t i;
@@ -91,7 +94,7 @@ void BLE_TOOLS::on_timer_timeout()
     }
     else if(recDataLen > 0)
     {
-        textShowData(recTable, recDataLen);
+        //textShowData(recTable, recDataLen);
         if(recDataLen <= B_TP_MTU)
         {
             b_tp_receive_data(recTable, recDataLen);
@@ -117,13 +120,19 @@ void BLE_TOOLS::on_timer_timeout()
         time20ms_count = 0;
         updateBleDevList();
     }
-
+    quartTimer->start(20);
 }
 
 void BLE_TOOLS::textShowData(uint8_t *pbuf, uint32_t len)
 {
     QByteArray buf_tmp;
     QString str, str1;
+    static uint8_t show_count = 0;
+    if(show_count > 15)
+    {
+        show_count = 0;
+        ui->uartRecText->clear();
+    }
     buf_tmp = QByteArray::fromRawData((const char *)pbuf, len);
     str1 = buf_tmp.toHex().data();
     str1 = str1.toUpper();
@@ -134,6 +143,7 @@ void BLE_TOOLS::textShowData(uint8_t *pbuf, uint32_t len)
         str += " ";
     }
     ui->uartRecText->append(str);
+    show_count++;
 }
 
 
@@ -208,3 +218,20 @@ void BLE_TOOLS::on_clear_list_clicked()
 
 
 
+
+void BLE_TOOLS::on_listWidget_doubleClicked(const QModelIndex &index)
+{
+    pro_connect_info_t connect_info;
+    bleDevInfo_t *pdev;
+    if(ui->scan->text() == "Stop")
+    {
+        return;
+    }
+    uint32_t i = index.row();
+    pdev = bleDevMode.getBleDev(i);
+    if(pdev != nullptr)
+    {
+        memcpy(connect_info.addr, pdev->addr, 6);
+        tc_send(CMD_TOOL_CONNECT, 0, (uint8_t *)&connect_info, sizeof(pro_connect_info_t));
+    }
+}

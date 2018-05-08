@@ -8,10 +8,10 @@
 extern "C" {
 #endif
 
-#define STRUCT_OFF(type, n)     ((uint32_t)(&(((type *)0)->n)))    
-    
+#define STRUCT_OFF(type, n)     ((uint32_t)(&(((type *)0)->n)))
+
 /**
- * @defgroup PROTOCOL_CMD_LIST 
+ * @defgroup PROTOCOL_CMD_LIST
  * @{
  */
 
@@ -46,6 +46,7 @@ extern "C" {
 #define CMD_UPLOAD_SAMPLE       0X54
 
 #define CMD_TOOL_SCAN           0XA0
+#define CMD_TOOL_CONNECT        0XA1
 /**
  * @}
  */
@@ -92,7 +93,7 @@ extern "C" {
 
 
 #pragma pack(1)
-    
+
 
 typedef struct
 {
@@ -121,14 +122,14 @@ typedef struct
 /** CMD_BATTERY */
 typedef struct
 {
-    uint16_t voltage_mv; 
+    uint16_t voltage_mv;
 }pro_battery_t;
 
 
 /** CMD_SET_USER_ID */
 typedef struct
 {
-    uint32_t user_id; 
+    uint32_t user_id;
 }pro_user_id_t;
 
 
@@ -292,7 +293,7 @@ typedef struct
     uint8_t onoff_swing;
     uint8_t onoff_race;
     uint8_t onoff_run;
-    uint8_t onoff_force;  
+    uint8_t onoff_force;
 }pro_led_onoff_t;
 
 
@@ -330,7 +331,7 @@ typedef struct
 #define PROTO_ERR_CODE_PER_NUMBER     6
 typedef struct
 {
-    pro_err_code_t err_code[PROTO_ERR_CODE_PER_NUMBER];    
+    pro_err_code_t err_code[PROTO_ERR_CODE_PER_NUMBER];
 }pro_upload_err_code_t;
 
 #define PROTO_SAMPLE_DATA_PER_NUMBER  12
@@ -364,12 +365,21 @@ typedef struct
     uint8_t type;           //  0: stop  1: start
 }pro_scan_require_t;
 
+/** CMD_TOOL_CONNECT */
+
+typedef struct
+{
+    uint8_t addr[6];
+}pro_connect_info_t;
+
+
 #pragma pack()
+
 
 void tc_send(uint8_t cmd, uint8_t status, uint8_t *pbuf, uint32_t len);
 
-void tc_scan_start(void);
-void tc_scan_stop(void);
+void tc_scan_start();
+void tc_scan_stop();
 
 #ifdef __cplusplus
 }

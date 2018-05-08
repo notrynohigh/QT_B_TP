@@ -24,8 +24,10 @@ public:
 private slots:
     void on_opencom_clicked();
     void on_scan_clicked();
-    void on_timer_timeout();
+    void timer_timeout();
     void on_clear_list_clicked();
+
+    void on_listWidget_doubleClicked(const QModelIndex &index);
 
 private:
     Ui::BLE_TOOLS *ui;
