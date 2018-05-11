@@ -31,5 +31,29 @@ void tc_scan_stop()
     tc_send(CMD_TOOL_SCAN, 0, (uint8_t *)&scan_req, sizeof(pro_scan_require_t));
 }
 
+void tc_set_date(int year, int month, int day, int hour, int minute, int second)
+{
+    pro_time_t set_time;
+    set_time.year = (uint8_t)(year - 2000);
+    set_time.month = (uint8_t)month;
+    set_time.day = (uint8_t)day;
+    set_time.hour = (uint8_t)hour;
+    set_time.minute = (uint8_t)minute;
+    set_time.second = (uint8_t)second;
+    tc_send(CMD_SET_TIME, 0, &set_time, sizeof(pro_time_t));
+}
 
+void tc_get_date()
+{
+    tc_send(CMD_GET_TIME, 0, NULL, 0);
+}
 
+void tc_get_version()
+{
+    tc_send(CMD_VERSION, 0, NULL, 0);
+}
+
+void tc_get_total_step()
+{
+    tc_send(CMD_VERSION, 0, NULL, 0);
+}

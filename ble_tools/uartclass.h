@@ -12,6 +12,8 @@ public:
     QStringList uartComAvailable;
 
     uartClass();
+
+    void uartRefreshCOM();
     void uartB_TP_Send(uint8_t *pbuf, uint32_t len);
     bool uartOpenPort(const QString portName);
     void uartClosePort();

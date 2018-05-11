@@ -16,10 +16,8 @@ public:
     explicit BLE_TOOLS(QWidget *parent = 0);
     ~BLE_TOOLS();
 
-    quint32 recDataLen = 0;
-    quint8  recTable[256];
-
     void textShowData(uint8_t *pbuf, uint32_t len);
+    void textShowString(uint8_t *pbuf, uint32_t len);
     void updateBleDevList();
 private slots:
     void on_opencom_clicked();
@@ -28,6 +26,18 @@ private slots:
     void on_clear_list_clicked();
 
     void on_listWidget_doubleClicked(const QModelIndex &index);
+
+    void on_clear_log_clicked();
+
+    void on_refresh_com_clicked();
+
+    void on_setDate_clicked();
+
+    void on_getdata_clicked();
+
+    void on_version_clicked();
+
+    void on_total_steps_clicked();
 
 private:
     Ui::BLE_TOOLS *ui;

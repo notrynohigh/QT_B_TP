@@ -1,7 +1,7 @@
 /**
  ****************************************************************************
  * MIT License
- * @file b_tp_config.h  
+ * @file b_tp_config.h
  * @version v1.1.1
  * Copyright (c) [2018-2019] [Bean  email: notrynohigh@outlook.com]
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,9 +23,6 @@
  */
 #ifndef __B_TP_CONFIG_H__
 #define __B_TP_CONFIG_H__
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /**
  * @addtogroup B_TP
@@ -39,7 +36,7 @@ extern "C" {
  */
 
 /**
- * @defgroup B_TP_VA_TYPE variable type 
+ * @defgroup B_TP_VA_TYPE variable type
  * @{
  */
 typedef unsigned char      b_TPU8;
@@ -67,16 +64,12 @@ typedef signed int         b_TPS32;
 #define B_TP_HEAD                 0XA5
 #define B_TP_MTU                  20
 
-#define B_TP_SEND_REPEAT          1
 #define B_TP_SEND_LOCK_ENABLE     1
-#define B_TP_STATIC_BUF_ENABLE    1
 
-#if B_TP_SEND_LOCK_ENABLE
-#define B_TP_STATIC_BUF_LEN       160
-#else
-#define B_TP_STATIC_BUF_LEN       160
-#define B_TP_STATIC_REC_BUF_LEN   64
-#endif
+
+#define B_TP_STATIC_SEND_BUF_LEN  256
+#define B_TP_STATIC_REC_BUF_LEN   256
+
 
 #define B_TP_DEBUG_NO_CHECK       0
 /** configure end ---------------------------------------------*/
@@ -103,7 +96,4 @@ typedef struct
  */
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif

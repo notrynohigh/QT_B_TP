@@ -18,6 +18,21 @@ uartClass::uartClass()
 }
 
 
+void uartClass::uartRefreshCOM()
+{
+    uartComAvailable.clear();
+    foreach (const QSerialPortInfo &info , QSerialPortInfo::availablePorts()) {
+        QSerialPort SerialPort;
+        SerialPort.setPort(info);
+        if(SerialPort.open(QIODevice::ReadWrite))
+        {
+            uartComAvailable.append(SerialPort.portName());
+            SerialPort.close();
+        }
+    }
+}
+
+
 bool uartClass::uartOpenPort(const QString portName)
 {
     if(uartOpenStatus)

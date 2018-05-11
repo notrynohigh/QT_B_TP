@@ -381,6 +381,13 @@ void tc_send(uint8_t cmd, uint8_t status, uint8_t *pbuf, uint32_t len);
 void tc_scan_start();
 void tc_scan_stop();
 
+void tc_set_date(int year, int month, int day, int hour, int minute, int second);
+void tc_get_date();
+void tc_get_version();
+
+void tc_get_total_step();
+
+
 #ifdef __cplusplus
 }
 #endif
