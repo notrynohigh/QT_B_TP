@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\ble_tools.o
+./debug\b_tp.o
+./debug\crc16.o
+./debug\b_tp_port.o
+./debug\uartclass.o
+./debug\tool_cmd.o
+./debug\bledev.o
+./debug\qrc_icon.o
+./debug\moc_ble_tools.o
+);

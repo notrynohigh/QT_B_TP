@@ -34,12 +34,13 @@ BLE_TOOLS::BLE_TOOLS(QWidget *parent) :
     tmpClass = this;
 
     b_tp_reg_callback(b_tp_callback);
+
+    ui->total_step_time->setDateTime(QDateTime::currentDateTime());
 }
 
 
 BLE_TOOLS::~BLE_TOOLS()
 {
-
     if(uartModule.uartGetOpenStatus())
     {
         uartModule.uartClosePort();
@@ -62,6 +63,7 @@ void BLE_TOOLS::on_opencom_clicked()
         {
             ui->COMx->setEnabled(false);
             ui->opencom->setText("Close");
+            tc_get_connect_status();
         }
     }
 }
@@ -105,6 +107,9 @@ void BLE_TOOLS::timer_timeout()
         time20ms_count = 0;
         updateBleDevList();
     }
+
+    dispatch_cmd(t_buf, t_buf_len);
+    t_buf_len = 0;
     quartTimer->start(20);
 }
 
@@ -163,13 +168,18 @@ void BLE_TOOLS::updateBleDevList()
     }
 }
 
+static pro_rt_detail_response_t s_deteil = {
 
-void b_tp_callback(uint8_t *pbuf, uint32_t len)
+    .flag = 0,
+};
+
+void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
 {
     bleDevInfo_t dev;
     uint8_t proTable[256];
     int pro_len;
     uint8_t off = STRUCT_OFF(tcmd_struct_t, buf);
+    uint8_t off_2;
     if(len < off)
     {
         return;
@@ -177,6 +187,19 @@ void b_tp_callback(uint8_t *pbuf, uint32_t len)
     tcmd_struct_t *result = (tcmd_struct_t *)pbuf;
 
     switch (result->cmd) {
+    case CMD_TOOL_CONN_STA:
+        {
+            pro_conn_sta_t *resp = (pro_conn_sta_t *)(result->buf);
+            if(resp->status == 0x1)
+            {
+                ui->conn_label->setText("Connected");
+            }
+            else
+            {
+                ui->conn_label->setText("Disconnected");
+            }
+        }
+        break;
     case CMD_TOOL_SCAN:
         {
             pro_scan_response_t *resp = (pro_scan_response_t *)(result->buf);
@@ -189,17 +212,138 @@ void b_tp_callback(uint8_t *pbuf, uint32_t len)
     case CMD_GET_TIME:
         {
             pro_time_t *resptime = (pro_time_t *)(result->buf);
-            pro_len = sprintf((char *)proTable, "dev: %02d-%02d-%02d %02d:%02d:%02d ", resptime->year, resptime->month, resptime->day, resptime->hour, resptime->minute, resptime->second);
-            tmpClass->textShowString(proTable, pro_len);
+            pro_len = sprintf((char *)proTable, "time: %02d-%02d-%02d %02d:%02d:%02d ", resptime->year, resptime->month, resptime->day,
+                              resptime->hour, resptime->minute, resptime->second);
+            textShowString(proTable, pro_len);
         }
         break;
     case CMD_VERSION:
         {
             pro_version_t *respversion = (pro_version_t *)(result->buf);
-            pro_len = sprintf((char *)proTable, "code %d version: hw %d fw %d algo: %d protocol: %d",respversion->internal_code,  respversion->hw_version, respversion->fw_version, respversion->algo_version, respversion->protocol_version);
-            tmpClass->textShowString(proTable, pro_len);
+            pro_len = sprintf((char *)proTable, "version: code %d version: hw %d fw %d algo: %d protocol: %d",respversion->internal_code,
+                              respversion->hw_version, respversion->fw_version, respversion->algo_version, respversion->protocol_version);
+            textShowString(proTable, pro_len);
         }
         break;
+    case CMD_DRAW_WAVE_START:
+        {
+            pro_xyz_t *respversion = (pro_xyz_t *)(result->buf);
+            pro_len = sprintf((char *)proTable, "xyz: %4d  %4d %4d ; xyz: %4d  %4d %4d",
+                              respversion->xyz_info[0].x >> 8, respversion->xyz_info[0].y >> 8, respversion->xyz_info[0].z >> 8,
+                              respversion->xyz_info[1].x >> 8, respversion->xyz_info[1].y >> 8, respversion->xyz_info[1].z >> 8);
+            textShowString(proTable, pro_len);
+        }
+        break;
+    case CMD_CHIP_ADJUST:
+        {
+            pro_adjust_t *respversion = (pro_adjust_t *)(result->buf);
+            pro_len = sprintf((char *)proTable, "s: %d",respversion->status);
+            textShowString(proTable, pro_len);
+        }
+        break;
+    case CMD_GET_TOTAL_STEP:
+        {
+            pro_total_step_response_t *respversion = (pro_total_step_response_t *)(result->buf);
+            pro_len = sprintf((char *)proTable, "%2d-%2d total: %4d run: %4d race: %4d walk: %4d",respversion->month, respversion->day, respversion->total_step, respversion->run
+                              , respversion->race, respversion->walk);
+            textShowString(proTable, pro_len);
+        }
+        break;
+    case CMD_SYN_WALK_DATA:
+        {
+            if(result->status == CMD_STATUS_SUCCESS || result->status == CMD_STATUS_LAST_ONE)
+            {
+                pro_syn_walk_response_t *respversion = (pro_syn_walk_response_t *)(result->buf);
+                off_2 = STRUCT_OFF(pro_syn_walk_response_t, walk_info);
+                uint8_t j = 0, i = (len - off - off_2) / sizeof(pro_walk_info_t);
+                for(j = 0;j < i;j++)
+                {
+                    pro_len = sprintf((char *)proTable, "%2d-%2d %2d:%2d total:%4d slow:%4d fast:%4d run:%4d inside:%4d outside:%4d normal:%4d",
+                                      respversion->month, respversion->day,
+                                      respversion->walk_info[j].hour, respversion->walk_info[j].minute, respversion->walk_info[j].total_step, respversion->walk_info[j].slow_walk_step,
+                                      respversion->walk_info[j].fast_walk_step, respversion->walk_info[j].run_step, respversion->walk_info[j].inside_step, respversion->walk_info[j].outside_step,
+                                      respversion->walk_info[j].normal_step);
+                    textShowString(proTable, pro_len);
+                }
+                tc_syn_walk_go_on();
+            }
+        }
+        break;
+    case CMD_SYN_RUN_DATA:
+        {
+            if(result->status == CMD_STATUS_SUCCESS || result->status == CMD_STATUS_LAST_ONE)
+            {
+                pro_syn_run_response_t *respversion = (pro_syn_run_response_t *)(result->buf);
+                off_2 = STRUCT_OFF(pro_syn_run_response_t, run_info);
+                uint8_t j = 0, i = (len - off - off_2) / sizeof(pro_run_info_t);
+                for(j = 0;j < i;j++)
+                {
+                    pro_len = sprintf((char *)proTable, "%2d-%2d %2d:%2d run:%4d outside:%4d inside:%4d normal:%4d fore:%4d mid:%4d back:%4d force:%4d height:%4d float:%4d land:%4d",
+                                      respversion->month, respversion->day,
+                                      respversion->run_info[j].hour, respversion->run_info[j].minute, respversion->run_info[j].run_step, respversion->run_info[j].outside_step,
+                                      respversion->run_info[j].inside_step, respversion->run_info[j].normal_step, respversion->run_info[j].forefoot_step, respversion->run_info[j].midfoot_step,
+                                      respversion->run_info[j].backfoot_step, respversion->run_info[j].force_g, respversion->run_info[j].height_cm, respversion->run_info[j].float_time_ms,
+                                      respversion->run_info[j].land_time_ms);
+                    textShowString(proTable, pro_len);
+                }
+                tc_syn_run_go_on();
+            }
+        }
+        break;
+
+    case CMD_RT_RUN_START:
+        {
+            if(result->status == CMD_STATUS_SUCCESS)
+            {
+                pro_rt_detail_response_t *pdeteil;
+                pro_rt_simple_response_t *psimple;
+                psimple = (pro_rt_simple_response_t *)(result->buf);
+                if(psimple->flag == 0x2)
+                {
+                    pdeteil = (pro_rt_detail_response_t *)(result->buf);
+                    if(s_deteil.flag == 0x0)
+                    {
+                        memcpy(&s_deteil, pdeteil, sizeof(pro_rt_detail_response_t));
+                    }
+                    pro_len = sprintf((char *)proTable, "total:%4d run:%4d fast:%4d slow:%4d w_inside:%4d w_outside:%4d w_normal:%4d",
+                                      pdeteil->rt_info.total_step - s_deteil.rt_info.total_step, pdeteil->rt_info.run_step - s_deteil.rt_info.run_step, pdeteil->rt_info.fast_walk_step - s_deteil.rt_info.fast_walk_step, pdeteil->rt_info.slow_walk_step - s_deteil.rt_info.slow_walk_step,
+                                      pdeteil->rt_info.walk_inside_step - s_deteil.rt_info.walk_inside_step, pdeteil->rt_info.walk_outside_step - s_deteil.rt_info.walk_outside_step, pdeteil->rt_info.walk_normal_step - s_deteil.rt_info.walk_normal_step
+                                      );
+                    textShowString(proTable, pro_len);
+                    pro_len = sprintf((char *)proTable, "r_outside:%4d r_normal:%4d r_inside:%4d r_fore:%4d f_mid:%4d f_back:%4d",
+                                      pdeteil->rt_info.run_outside_step - s_deteil.rt_info.run_outside_step, pdeteil->rt_info.run_normal_step - s_deteil.rt_info.run_normal_step, pdeteil->rt_info.run_inside_step - s_deteil.rt_info.run_inside_step,
+                                      pdeteil->rt_info.run_forefoot_step - s_deteil.rt_info.run_forefoot_step, pdeteil->rt_info.run_midfoot_step - s_deteil.rt_info.run_midfoot_step, pdeteil->rt_info.run_backfoot_step - s_deteil.rt_info.run_backfoot_step
+                                      );
+                }
+                else
+                {
+                    psimple = (pro_rt_simple_response_t *)(result->buf);
+                    pro_len = sprintf((char *)proTable, "total:%4d",
+                                      psimple->total_step - s_deteil.rt_info.total_step
+                                      );
+                }
+                textShowString(proTable, pro_len);
+            }
+        }
+        break;
+
+    case CMD_RT_RUN_STOP:
+        {
+            pro_rt_detail_response_t *pdeteil = (pro_rt_detail_response_t *)(result->buf);
+            pro_len = sprintf((char *)proTable, "total:%4d run:%4d fast:%4d slow:%4d w_inside:%4d w_outside:%4d w_normal:%4d",
+                              pdeteil->rt_info.total_step - s_deteil.rt_info.total_step, pdeteil->rt_info.run_step - s_deteil.rt_info.run_step, pdeteil->rt_info.fast_walk_step - s_deteil.rt_info.fast_walk_step, pdeteil->rt_info.slow_walk_step - s_deteil.rt_info.slow_walk_step,
+                              pdeteil->rt_info.walk_inside_step - s_deteil.rt_info.walk_inside_step, pdeteil->rt_info.walk_outside_step - s_deteil.rt_info.walk_outside_step, pdeteil->rt_info.walk_normal_step - s_deteil.rt_info.walk_normal_step
+                              );
+            textShowString(proTable, pro_len);
+            pro_len = sprintf((char *)proTable, "r_outside:%4d r_normal:%4d r_inside:%4d r_fore:%4d f_mid:%4d f_back:%4d",
+                              pdeteil->rt_info.run_outside_step - s_deteil.rt_info.run_outside_step, pdeteil->rt_info.run_normal_step - s_deteil.rt_info.run_normal_step, pdeteil->rt_info.run_inside_step - s_deteil.rt_info.run_inside_step,
+                              pdeteil->rt_info.run_forefoot_step - s_deteil.rt_info.run_forefoot_step, pdeteil->rt_info.run_midfoot_step - s_deteil.rt_info.run_midfoot_step, pdeteil->rt_info.run_backfoot_step - s_deteil.rt_info.run_backfoot_step
+                              );
+            textShowString(proTable, pro_len);
+        }
+        break;
+
+
     default:
         {
             tc_send(CMD_TOOL_SCAN, CMD_STATUS_UNKNOWN, NULL, 0);
@@ -208,8 +352,21 @@ void b_tp_callback(uint8_t *pbuf, uint32_t len)
     }
     if(result->cmd != CMD_TOOL_SCAN)
     {
-        tmpClass->textShowData(pbuf, len);
+        textShowData(pbuf, len);
     }
+}
+
+
+
+void b_tp_callback(uint8_t *pbuf, uint32_t len)
+{
+    uint8_t off = STRUCT_OFF(tcmd_struct_t, buf);
+    if(len < off)
+    {
+        return;
+    }
+    memcpy(tmpClass->t_buf, pbuf, len);
+    tmpClass->t_buf_len = len;
 }
 
 
@@ -273,5 +430,52 @@ void BLE_TOOLS::on_version_clicked()
 
 void BLE_TOOLS::on_total_steps_clicked()
 {
-    tc_get_total_step();
+    int year, month, day;
+    ui->total_step_time->date().getDate(&year, &month, &day);
+    tc_get_total_step((uint8_t)month, (uint8_t)day);
+}
+
+void BLE_TOOLS::on_wave_clicked()
+{
+    tc_draw_wave_start();
+}
+
+void BLE_TOOLS::on_StopDrawWave_clicked()
+{
+    tc_draw_wave_stop();
+}
+
+void BLE_TOOLS::on_AdjustChip_clicked()
+{
+    tc_chip_adjust();
+}
+
+void BLE_TOOLS::on_clear_proto_result_clicked()
+{
+    ui->protocol_result->clear();
+}
+
+void BLE_TOOLS::on_updateRun_clicked()
+{
+    int year, month, day;
+    ui->total_step_time->date().getDate(&year, &month, &day);
+    tc_syn_run_step(month, day, 0, 0, 23, 59);
+}
+
+void BLE_TOOLS::on_updateWalk_clicked()
+{
+    int year, month, day;
+    ui->total_step_time->date().getDate(&year, &month, &day);
+    tc_syn_walk_step(month, day, 0, 0, 23, 59);
+}
+
+
+void BLE_TOOLS::on_RT_START_clicked()
+{
+    tc_realtime_start();
+}
+
+void BLE_TOOLS::on_RT_END_clicked()
+{
+    tc_realtime_end();
 }

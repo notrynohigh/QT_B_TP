@@ -40,7 +40,7 @@ void tc_set_date(int year, int month, int day, int hour, int minute, int second)
     set_time.hour = (uint8_t)hour;
     set_time.minute = (uint8_t)minute;
     set_time.second = (uint8_t)second;
-    tc_send(CMD_SET_TIME, 0, &set_time, sizeof(pro_time_t));
+    tc_send(CMD_SET_TIME, 0, (uint8_t *)&set_time, sizeof(pro_time_t));
 }
 
 void tc_get_date()
@@ -53,7 +53,89 @@ void tc_get_version()
     tc_send(CMD_VERSION, 0, NULL, 0);
 }
 
-void tc_get_total_step()
+void tc_get_total_step(uint8_t month, uint8_t day)
 {
-    tc_send(CMD_VERSION, 0, NULL, 0);
+    pro_total_step_require_t total_step_req;
+    total_step_req.month = month;
+    total_step_req.day = day;
+    tc_send(CMD_GET_TOTAL_STEP, 0, (uint8_t *)&total_step_req, sizeof(pro_total_step_require_t));
 }
+
+void tc_draw_wave_start()
+{
+    tc_send(CMD_DRAW_WAVE_START, 0, NULL, 0);
+}
+
+void tc_draw_wave_stop()
+{
+    tc_send(CMD_DRAW_WAVE_END, 0, NULL, 0);
+}
+
+
+void tc_chip_adjust()
+{
+    tc_send(CMD_CHIP_ADJUST, 0, NULL, 0);
+}
+
+void tc_syn_walk_step(uint8_t month, uint8_t day, uint8_t s_hour, uint8_t s_minute, uint8_t e_hour, uint8_t e_minute)
+{
+    pro_syn_require_t sys_req;
+    sys_req.month = month;
+    sys_req.day = day;
+    sys_req.s_hour = s_hour;
+    sys_req.e_hour = e_hour;
+    sys_req.e_minute = e_minute;
+    sys_req.s_minute = s_minute;
+
+    tc_send(CMD_SYN_WALK_DATA, 0, (uint8_t *)&sys_req, sizeof(pro_syn_require_t));
+}
+
+void tc_syn_walk_go_on()
+{
+    tc_send(CMD_SYN_WALK_DATA, CMD_STATUS_ACK, NULL, 0);
+}
+
+
+
+void tc_syn_run_step(uint8_t month, uint8_t day, uint8_t s_hour, uint8_t s_minute, uint8_t e_hour, uint8_t e_minute)
+{
+    pro_syn_require_t sys_req;
+    sys_req.month = month;
+    sys_req.day = day;
+    sys_req.s_hour = s_hour;
+    sys_req.e_hour = e_hour;
+    sys_req.e_minute = e_minute;
+    sys_req.s_minute = s_minute;
+
+    tc_send(CMD_SYN_RUN_DATA, 0, (uint8_t *)&sys_req, sizeof(pro_syn_require_t));
+}
+
+
+void tc_syn_run_go_on()
+{
+    tc_send(CMD_SYN_RUN_DATA, CMD_STATUS_ACK, NULL, 0);
+}
+
+void tc_get_connect_status()
+{
+    tc_send(CMD_TOOL_CONN_STA, 0, NULL, 0);
+}
+
+
+void tc_realtime_start()
+{
+    tc_send(CMD_RT_RUN_START, 0, NULL, 0);
+}
+
+
+
+void tc_realtime_end()
+{
+    tc_send(CMD_RT_RUN_STOP, 0, NULL, 0);
+}
+
+
+
+
+
+

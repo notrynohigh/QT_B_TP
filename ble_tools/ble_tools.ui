@@ -78,10 +78,10 @@
    <widget class="QGroupBox" name="Cmd">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>420</x>
       <y>20</y>
-      <width>141</width>
-      <height>281</height>
+      <width>711</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="title">
@@ -91,7 +91,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>40</y>
+       <y>20</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -104,7 +104,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>80</y>
+       <y>50</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -117,7 +117,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>120</y>
+       <y>80</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -130,7 +130,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>160</y>
+       <y>110</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -143,7 +143,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>200</y>
+       <y>140</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -155,8 +155,8 @@
     <widget class="QPushButton" name="StopDrawWave">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>240</y>
+       <x>120</x>
+       <y>140</y>
        <width>81</width>
        <height>23</height>
       </rect>
@@ -165,41 +165,83 @@
       <string>StopDrawWave</string>
      </property>
     </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>20</y>
+       <width>181</width>
+       <height>151</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QDateEdit" name="total_step_time"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="updateRun">
+        <property name="text">
+         <string>SynRun</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="updateWalk">
+        <property name="text">
+         <string>SynWalk</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="total_steps">
+        <property name="text">
+         <string>TotalStep</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="conn_label">
+     <property name="geometry">
+      <rect>
+       <x>610</x>
+       <y>10</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Disconnected</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="RT_START">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>20</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>RealTimeStart</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="RT_END">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>60</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>RealTimeEnd</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QTextEdit" name="protocol_result">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>400</y>
-      <width>711</width>
-      <height>281</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="total_steps">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>30</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TotalStep</string>
-    </property>
-   </widget>
-   <widget class="QDateEdit" name="dateEdit">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>30</y>
-      <width>130</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>34</x>
@@ -228,7 +270,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -243,6 +285,28 @@
      </item>
      <item>
       <widget class="QPushButton" name="clear_log">
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>220</y>
+      <width>711</width>
+      <height>461</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QTextEdit" name="protocol_result"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clear_proto_result">
        <property name="text">
         <string>Clear</string>
        </property>

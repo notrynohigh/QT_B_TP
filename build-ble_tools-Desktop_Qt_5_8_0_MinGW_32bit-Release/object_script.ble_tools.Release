@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\ble_tools.o
+./release\b_tp.o
+./release\crc16.o
+./release\b_tp_port.o
+./release\uartclass.o
+./release\tool_cmd.o
+./release\bledev.o
+./release\qrc_icon.o
+./release\moc_ble_tools.o
+);

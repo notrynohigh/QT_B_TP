@@ -47,6 +47,7 @@ extern "C" {
 
 #define CMD_TOOL_SCAN           0XA0
 #define CMD_TOOL_CONNECT        0XA1
+#define CMD_TOOL_CONN_STA       0XA2
 /**
  * @}
  */
@@ -184,7 +185,7 @@ typedef struct
     uint16_t fast_walk_step;
     uint16_t run_step;
     uint16_t inside_step;
-    uint16_t outside_setp;
+    uint16_t outside_step;
     uint16_t normal_step;
 }pro_walk_info_t;
 
@@ -205,12 +206,12 @@ typedef struct
     uint8_t  hour;
     uint8_t  minute;
     uint8_t  run_step;
-    uint8_t  forefoot_setp;
-    uint8_t  midfoot_setp;
-    uint8_t  backfoot_setp;
-    uint8_t  inside_setp;
-    uint8_t  normal_setp;
-    uint8_t  outside_setp;
+    uint8_t  forefoot_step;
+    uint8_t  midfoot_step;
+    uint8_t  backfoot_step;
+    uint8_t  inside_step;
+    uint8_t  normal_step;
+    uint8_t  outside_step;
     uint16_t height_cm;
     uint16_t force_g;
     uint16_t land_time_ms;
@@ -276,9 +277,9 @@ typedef struct
 /** CMD_DRAW_WAVE_START */
 typedef struct
 {
-    uint16_t x;
-    uint16_t y;
-    uint16_t z;
+    int16_t x;
+    int16_t y;
+    int16_t z;
 }pro_xyz_info_t;
 
 typedef struct
@@ -373,6 +374,15 @@ typedef struct
 }pro_connect_info_t;
 
 
+/** CMD_TOOL_CONN_STA */
+
+typedef struct
+{
+    uint8_t status;
+}pro_conn_sta_t;
+
+
+
 #pragma pack()
 
 
@@ -380,12 +390,29 @@ void tc_send(uint8_t cmd, uint8_t status, uint8_t *pbuf, uint32_t len);
 
 void tc_scan_start();
 void tc_scan_stop();
+void tc_get_connect_status();
+
 
 void tc_set_date(int year, int month, int day, int hour, int minute, int second);
 void tc_get_date();
+
 void tc_get_version();
 
-void tc_get_total_step();
+void tc_get_total_step(uint8_t month, uint8_t day);
+
+void tc_draw_wave_start();
+void tc_draw_wave_stop();
+
+void tc_chip_adjust();
+
+void tc_syn_walk_step(uint8_t month, uint8_t day, uint8_t s_hour, uint8_t s_minute, uint8_t e_hour, uint8_t e_minute);
+void tc_syn_walk_go_on();
+
+void tc_syn_run_step(uint8_t month, uint8_t day, uint8_t s_hour, uint8_t s_minute, uint8_t e_hour, uint8_t e_minute);
+void tc_syn_run_go_on();
+
+void tc_realtime_start();
+void tc_realtime_end();
 
 
 #ifdef __cplusplus

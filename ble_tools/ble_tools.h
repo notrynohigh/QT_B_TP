@@ -16,9 +16,14 @@ public:
     explicit BLE_TOOLS(QWidget *parent = 0);
     ~BLE_TOOLS();
 
+    uint8_t t_buf[256];
+    uint32_t t_buf_len = 0;
+
+
     void textShowData(uint8_t *pbuf, uint32_t len);
     void textShowString(uint8_t *pbuf, uint32_t len);
     void updateBleDevList();
+    void dispatch_cmd(uint8_t *pbuf, uint32_t len);
 private slots:
     void on_opencom_clicked();
     void on_scan_clicked();
@@ -39,9 +44,26 @@ private slots:
 
     void on_total_steps_clicked();
 
+    void on_wave_clicked();
+
+    void on_StopDrawWave_clicked();
+
+    void on_AdjustChip_clicked();
+
+    void on_clear_proto_result_clicked();
+
+    void on_updateRun_clicked();
+
+    void on_updateWalk_clicked();
+
+    void on_RT_START_clicked();
+
+    void on_RT_END_clicked();
+
 private:
     Ui::BLE_TOOLS *ui;
     QTimer *quartTimer;
+
 
 };
 
