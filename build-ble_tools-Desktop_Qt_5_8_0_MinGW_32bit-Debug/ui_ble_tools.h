@@ -47,7 +47,7 @@ public:
     QPushButton *AdjustChip;
     QPushButton *wave;
     QPushButton *StopDrawWave;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_3;
     QDateEdit *total_step_time;
     QPushButton *updateRun;
@@ -56,16 +56,16 @@ public:
     QLabel *conn_label;
     QPushButton *RT_START;
     QPushButton *RT_END;
-    QWidget *layoutWidget1;
+    QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout;
     QListWidget *listWidget;
     QPushButton *scan;
     QPushButton *clear_list;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout_2;
     QTextEdit *uartRecText;
     QPushButton *clear_log;
-    QWidget *widget1;
+    QWidget *layoutWidget4;
     QVBoxLayout *verticalLayout_4;
     QTextEdit *protocol_result;
     QPushButton *clear_proto_result;
@@ -77,14 +77,14 @@ public:
     {
         if (BLE_TOOLS->objectName().isEmpty())
             BLE_TOOLS->setObjectName(QStringLiteral("BLE_TOOLS"));
-        BLE_TOOLS->resize(1162, 759);
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        BLE_TOOLS->resize(1500, 759);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(BLE_TOOLS->sizePolicy().hasHeightForWidth());
         BLE_TOOLS->setSizePolicy(sizePolicy);
         BLE_TOOLS->setMinimumSize(QSize(1162, 759));
-        BLE_TOOLS->setMaximumSize(QSize(1162, 759));
+        BLE_TOOLS->setMaximumSize(QSize(1500, 759));
         QIcon icon;
         icon.addFile(QStringLiteral(":/Icon/resources/ble_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         BLE_TOOLS->setWindowIcon(icon);
@@ -140,30 +140,30 @@ public:
         StopDrawWave = new QPushButton(Cmd);
         StopDrawWave->setObjectName(QStringLiteral("StopDrawWave"));
         StopDrawWave->setGeometry(QRect(120, 140, 81, 23));
-        widget = new QWidget(Cmd);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(220, 20, 181, 151));
-        verticalLayout_3 = new QVBoxLayout(widget);
+        layoutWidget1 = new QWidget(Cmd);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(220, 20, 181, 151));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        total_step_time = new QDateEdit(widget);
+        total_step_time = new QDateEdit(layoutWidget1);
         total_step_time->setObjectName(QStringLiteral("total_step_time"));
 
         verticalLayout_3->addWidget(total_step_time);
 
-        updateRun = new QPushButton(widget);
+        updateRun = new QPushButton(layoutWidget1);
         updateRun->setObjectName(QStringLiteral("updateRun"));
 
         verticalLayout_3->addWidget(updateRun);
 
-        updateWalk = new QPushButton(widget);
+        updateWalk = new QPushButton(layoutWidget1);
         updateWalk->setObjectName(QStringLiteral("updateWalk"));
 
         verticalLayout_3->addWidget(updateWalk);
 
-        total_steps = new QPushButton(widget);
+        total_steps = new QPushButton(layoutWidget1);
         total_steps->setObjectName(QStringLiteral("total_steps"));
 
         verticalLayout_3->addWidget(total_steps);
@@ -177,69 +177,75 @@ public:
         RT_END = new QPushButton(Cmd);
         RT_END->setObjectName(QStringLiteral("RT_END"));
         RT_END->setGeometry(QRect(450, 60, 101, 31));
-        layoutWidget1 = new QWidget(centralWidget);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(34, 62, 331, 311));
-        verticalLayout = new QVBoxLayout(layoutWidget1);
+        layoutWidget2 = new QWidget(centralWidget);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(34, 62, 331, 311));
+        verticalLayout = new QVBoxLayout(layoutWidget2);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        listWidget = new QListWidget(layoutWidget1);
+        listWidget = new QListWidget(layoutWidget2);
         listWidget->setObjectName(QStringLiteral("listWidget"));
 
         verticalLayout->addWidget(listWidget);
 
-        scan = new QPushButton(layoutWidget1);
+        scan = new QPushButton(layoutWidget2);
         scan->setObjectName(QStringLiteral("scan"));
 
         verticalLayout->addWidget(scan);
 
-        clear_list = new QPushButton(layoutWidget1);
+        clear_list = new QPushButton(layoutWidget2);
         clear_list->setObjectName(QStringLiteral("clear_list"));
 
         verticalLayout->addWidget(clear_list);
 
-        layoutWidget2 = new QWidget(centralWidget);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(30, 380, 331, 301));
-        verticalLayout_2 = new QVBoxLayout(layoutWidget2);
+        layoutWidget3 = new QWidget(centralWidget);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(30, 380, 331, 301));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget3);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        uartRecText = new QTextEdit(layoutWidget2);
+        uartRecText = new QTextEdit(layoutWidget3);
         uartRecText->setObjectName(QStringLiteral("uartRecText"));
 
         verticalLayout_2->addWidget(uartRecText);
 
-        clear_log = new QPushButton(layoutWidget2);
+        clear_log = new QPushButton(layoutWidget3);
         clear_log->setObjectName(QStringLiteral("clear_log"));
 
         verticalLayout_2->addWidget(clear_log);
 
-        widget1 = new QWidget(centralWidget);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(420, 220, 711, 461));
-        verticalLayout_4 = new QVBoxLayout(widget1);
+        layoutWidget4 = new QWidget(centralWidget);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(420, 220, 1061, 461));
+        verticalLayout_4 = new QVBoxLayout(layoutWidget4);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        protocol_result = new QTextEdit(widget1);
+        protocol_result = new QTextEdit(layoutWidget4);
         protocol_result->setObjectName(QStringLiteral("protocol_result"));
 
         verticalLayout_4->addWidget(protocol_result);
 
-        clear_proto_result = new QPushButton(widget1);
+        clear_proto_result = new QPushButton(layoutWidget4);
         clear_proto_result->setObjectName(QStringLiteral("clear_proto_result"));
 
         verticalLayout_4->addWidget(clear_proto_result);
 
         BLE_TOOLS->setCentralWidget(centralWidget);
+        layoutWidget->raise();
+        Cmd->raise();
+        layoutWidget->raise();
+        layoutWidget->raise();
+        layoutWidget->raise();
+        protocol_result->raise();
         menuBar = new QMenuBar(BLE_TOOLS);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1162, 23));
+        menuBar->setGeometry(QRect(0, 0, 1500, 23));
         BLE_TOOLS->setMenuBar(menuBar);
         mainToolBar = new QToolBar(BLE_TOOLS);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

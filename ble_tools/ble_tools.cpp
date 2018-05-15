@@ -244,7 +244,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
     case CMD_GET_TOTAL_STEP:
         {
             pro_total_step_response_t *respversion = (pro_total_step_response_t *)(result->buf);
-            pro_len = sprintf((char *)proTable, "%2d-%2d total: %4d run: %4d race: %4d walk: %4d",respversion->month, respversion->day, respversion->total_step, respversion->run
+            pro_len = sprintf((char *)proTable, "%02d-%02d\ttotal:%d\trun:%d\trace:%d\twalk:%d",respversion->month, respversion->day, respversion->total_step, respversion->run
                               , respversion->race, respversion->walk);
             textShowString(proTable, pro_len);
         }
@@ -258,7 +258,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
                 uint8_t j = 0, i = (len - off - off_2) / sizeof(pro_walk_info_t);
                 for(j = 0;j < i;j++)
                 {
-                    pro_len = sprintf((char *)proTable, "%2d-%2d %2d:%2d total:%4d slow:%4d fast:%4d run:%4d inside:%4d outside:%4d normal:%4d",
+                    pro_len = sprintf((char *)proTable, "%02d-%02d\t%02d:%02d\t%d\t%d\t%d\t%d\t%d\t%d\t%d",
                                       respversion->month, respversion->day,
                                       respversion->walk_info[j].hour, respversion->walk_info[j].minute, respversion->walk_info[j].total_step, respversion->walk_info[j].slow_walk_step,
                                       respversion->walk_info[j].fast_walk_step, respversion->walk_info[j].run_step, respversion->walk_info[j].inside_step, respversion->walk_info[j].outside_step,
@@ -278,7 +278,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
                 uint8_t j = 0, i = (len - off - off_2) / sizeof(pro_run_info_t);
                 for(j = 0;j < i;j++)
                 {
-                    pro_len = sprintf((char *)proTable, "%2d-%2d %2d:%2d run:%4d outside:%4d inside:%4d normal:%4d fore:%4d mid:%4d back:%4d force:%4d height:%4d float:%4d land:%4d",
+                    pro_len = sprintf((char *)proTable, "%02d-%02d\t%02d:%02d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d",
                                       respversion->month, respversion->day,
                                       respversion->run_info[j].hour, respversion->run_info[j].minute, respversion->run_info[j].run_step, respversion->run_info[j].outside_step,
                                       respversion->run_info[j].inside_step, respversion->run_info[j].normal_step, respversion->run_info[j].forefoot_step, respversion->run_info[j].midfoot_step,
@@ -305,12 +305,12 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
                     {
                         memcpy(&s_deteil, pdeteil, sizeof(pro_rt_detail_response_t));
                     }
-                    pro_len = sprintf((char *)proTable, "total:%4d run:%4d fast:%4d slow:%4d w_inside:%4d w_outside:%4d w_normal:%4d",
+                    pro_len = sprintf((char *)proTable, "total:%d\trun:%d\tfast:%d\tslow:%d\tw_inside:%d\tw_outside:%d\tw_normal:%d",
                                       pdeteil->rt_info.total_step - s_deteil.rt_info.total_step, pdeteil->rt_info.run_step - s_deteil.rt_info.run_step, pdeteil->rt_info.fast_walk_step - s_deteil.rt_info.fast_walk_step, pdeteil->rt_info.slow_walk_step - s_deteil.rt_info.slow_walk_step,
                                       pdeteil->rt_info.walk_inside_step - s_deteil.rt_info.walk_inside_step, pdeteil->rt_info.walk_outside_step - s_deteil.rt_info.walk_outside_step, pdeteil->rt_info.walk_normal_step - s_deteil.rt_info.walk_normal_step
                                       );
                     textShowString(proTable, pro_len);
-                    pro_len = sprintf((char *)proTable, "r_outside:%4d r_normal:%4d r_inside:%4d r_fore:%4d f_mid:%4d f_back:%4d",
+                    pro_len = sprintf((char *)proTable, "r_outside:%d\tr_normal:%d\tr_inside:%d\tr_fore:%d\tf_mid:%d\tf_back:%d",
                                       pdeteil->rt_info.run_outside_step - s_deteil.rt_info.run_outside_step, pdeteil->rt_info.run_normal_step - s_deteil.rt_info.run_normal_step, pdeteil->rt_info.run_inside_step - s_deteil.rt_info.run_inside_step,
                                       pdeteil->rt_info.run_forefoot_step - s_deteil.rt_info.run_forefoot_step, pdeteil->rt_info.run_midfoot_step - s_deteil.rt_info.run_midfoot_step, pdeteil->rt_info.run_backfoot_step - s_deteil.rt_info.run_backfoot_step
                                       );
@@ -330,16 +330,17 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
     case CMD_RT_RUN_STOP:
         {
             pro_rt_detail_response_t *pdeteil = (pro_rt_detail_response_t *)(result->buf);
-            pro_len = sprintf((char *)proTable, "total:%4d run:%4d fast:%4d slow:%4d w_inside:%4d w_outside:%4d w_normal:%4d",
+            pro_len = sprintf((char *)proTable, "total:%d\trun:%d\tfast:%d\tslow:%d\tw_inside:%d\tw_outside:%d\tw_normal:%d",
                               pdeteil->rt_info.total_step - s_deteil.rt_info.total_step, pdeteil->rt_info.run_step - s_deteil.rt_info.run_step, pdeteil->rt_info.fast_walk_step - s_deteil.rt_info.fast_walk_step, pdeteil->rt_info.slow_walk_step - s_deteil.rt_info.slow_walk_step,
                               pdeteil->rt_info.walk_inside_step - s_deteil.rt_info.walk_inside_step, pdeteil->rt_info.walk_outside_step - s_deteil.rt_info.walk_outside_step, pdeteil->rt_info.walk_normal_step - s_deteil.rt_info.walk_normal_step
                               );
             textShowString(proTable, pro_len);
-            pro_len = sprintf((char *)proTable, "r_outside:%4d r_normal:%4d r_inside:%4d r_fore:%4d f_mid:%4d f_back:%4d",
+            pro_len = sprintf((char *)proTable, "r_outside:%d\tr_normal:%d\tr_inside:%d\tr_fore:%d\tf_mid:%d\tf_back:%d",
                               pdeteil->rt_info.run_outside_step - s_deteil.rt_info.run_outside_step, pdeteil->rt_info.run_normal_step - s_deteil.rt_info.run_normal_step, pdeteil->rt_info.run_inside_step - s_deteil.rt_info.run_inside_step,
                               pdeteil->rt_info.run_forefoot_step - s_deteil.rt_info.run_forefoot_step, pdeteil->rt_info.run_midfoot_step - s_deteil.rt_info.run_midfoot_step, pdeteil->rt_info.run_backfoot_step - s_deteil.rt_info.run_backfoot_step
                               );
             textShowString(proTable, pro_len);
+            s_deteil.flag = 0;
         }
         break;
 
@@ -458,6 +459,11 @@ void BLE_TOOLS::on_clear_proto_result_clicked()
 void BLE_TOOLS::on_updateRun_clicked()
 {
     int year, month, day;
+    uint8_t tmp_table[128];
+    uint32_t tmp_len = 0;
+    tmp_len = sprintf((char *)tmp_table, "date\ttime\trun\toutside\tinside\tnormal\tfore\tmid\tback\tforce\theight\tfloat\tland");
+    textShowString(tmp_table, tmp_len);
+
     ui->total_step_time->date().getDate(&year, &month, &day);
     tc_syn_run_step(month, day, 0, 0, 23, 59);
 }
@@ -465,6 +471,11 @@ void BLE_TOOLS::on_updateRun_clicked()
 void BLE_TOOLS::on_updateWalk_clicked()
 {
     int year, month, day;
+    uint8_t tmp_table[128];
+    uint32_t tmp_len = 0;
+    tmp_len = sprintf((char *)tmp_table, "date\ttime\ttotal\tslow\tfast\trun\tinside\toutside\tnormal");
+    textShowString(tmp_table, tmp_len);
+
     ui->total_step_time->date().getDate(&year, &month, &day);
     tc_syn_walk_step(month, day, 0, 0, 23, 59);
 }
