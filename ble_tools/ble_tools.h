@@ -60,6 +60,12 @@ private slots:
 
     void on_RT_END_clicked();
 
+    void on_battery_clicked();
+
+    void on_breakdown_clicked();
+
+    void on_restart_clicked();
+
 private:
     Ui::BLE_TOOLS *ui;
     QTimer *quartTimer;

@@ -56,6 +56,9 @@ public:
     QLabel *conn_label;
     QPushButton *RT_START;
     QPushButton *RT_END;
+    QPushButton *battery;
+    QPushButton *breakdown;
+    QPushButton *restart;
     QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout;
     QListWidget *listWidget;
@@ -177,6 +180,15 @@ public:
         RT_END = new QPushButton(Cmd);
         RT_END->setObjectName(QStringLiteral("RT_END"));
         RT_END->setGeometry(QRect(450, 60, 101, 31));
+        battery = new QPushButton(Cmd);
+        battery->setObjectName(QStringLiteral("battery"));
+        battery->setGeometry(QRect(120, 20, 75, 23));
+        breakdown = new QPushButton(Cmd);
+        breakdown->setObjectName(QStringLiteral("breakdown"));
+        breakdown->setGeometry(QRect(120, 50, 75, 23));
+        restart = new QPushButton(Cmd);
+        restart->setObjectName(QStringLiteral("restart"));
+        restart->setGeometry(QRect(120, 80, 75, 23));
         layoutWidget2 = new QWidget(centralWidget);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
         layoutWidget2->setGeometry(QRect(34, 62, 331, 311));
@@ -237,12 +249,6 @@ public:
         verticalLayout_4->addWidget(clear_proto_result);
 
         BLE_TOOLS->setCentralWidget(centralWidget);
-        layoutWidget->raise();
-        Cmd->raise();
-        layoutWidget->raise();
-        layoutWidget->raise();
-        layoutWidget->raise();
-        protocol_result->raise();
         menuBar = new QMenuBar(BLE_TOOLS);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1500, 23));
@@ -277,6 +283,9 @@ public:
         conn_label->setText(QApplication::translate("BLE_TOOLS", "Disconnected", Q_NULLPTR));
         RT_START->setText(QApplication::translate("BLE_TOOLS", "RealTimeStart", Q_NULLPTR));
         RT_END->setText(QApplication::translate("BLE_TOOLS", "RealTimeEnd", Q_NULLPTR));
+        battery->setText(QApplication::translate("BLE_TOOLS", "Battery", Q_NULLPTR));
+        breakdown->setText(QApplication::translate("BLE_TOOLS", "Breakdown", Q_NULLPTR));
+        restart->setText(QApplication::translate("BLE_TOOLS", "Restart", Q_NULLPTR));
         scan->setText(QApplication::translate("BLE_TOOLS", "Scan", Q_NULLPTR));
         clear_list->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));
         clear_log->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));

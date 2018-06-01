@@ -135,7 +135,17 @@ void tc_realtime_end()
 }
 
 
+void tc_get_battery()
+{
+    tc_send(CMD_BATTERY, 0, NULL, 0);
+}
 
+void tc_get_breakdown()
+{
+    tc_send(CMD_GET_BREAKDOWN, 0, NULL, 0);
+}
 
-
-
+void tc_set_reboot()
+{
+    tc_send(CMD_REBOOT, 0, NULL, 0);
+}

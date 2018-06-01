@@ -37,7 +37,7 @@ extern "C" {
 #define CMD_GET_LED_COLOR       0X12
 
 #define CMD_NOTIFY_MESSAGE      0X13
-
+#define CMD_GET_BREAKDOWN       0X14
 
 #define CMD_REBOOT              0X50
 #define CMD_ERASE_CHIP          0X51
@@ -381,7 +381,12 @@ typedef struct
     uint8_t status;
 }pro_conn_sta_t;
 
-
+/**  CMD_GET_BREAKDOWN  */
+typedef struct
+{
+    uint8_t flash_breakdown;
+    uint8_t mems_breakdown;
+}pro_breakdown_info_t;
 
 #pragma pack()
 
@@ -414,7 +419,10 @@ void tc_syn_run_go_on();
 void tc_realtime_start();
 void tc_realtime_end();
 
+void tc_get_battery();
 
+void tc_get_breakdown();
+void tc_set_reboot();
 #ifdef __cplusplus
 }
 #endif

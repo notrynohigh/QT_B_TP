@@ -343,8 +343,20 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             s_deteil.flag = 0;
         }
         break;
-
-
+    case CMD_BATTERY:
+        {
+            pro_battery_t *pdeteil = (pro_battery_t *)(result->buf);
+            pro_len = sprintf((char *)proTable, "battery:\t%dmv",pdeteil->voltage_mv);
+            textShowString(proTable, pro_len);
+        }
+        break;
+    case CMD_GET_BREAKDOWN:
+        {
+            pro_breakdown_info_t *pdeteil = (pro_breakdown_info_t *)(result->buf);
+            pro_len = sprintf((char *)proTable, "flash ok?:\t%d\tmems ok?\t%d\t",pdeteil->flash_breakdown, pdeteil->mems_breakdown);
+            textShowString(proTable, pro_len);
+        }
+        break;
     default:
         {
             tc_send(CMD_TOOL_SCAN, CMD_STATUS_UNKNOWN, NULL, 0);
@@ -489,4 +501,19 @@ void BLE_TOOLS::on_RT_START_clicked()
 void BLE_TOOLS::on_RT_END_clicked()
 {
     tc_realtime_end();
+}
+
+void BLE_TOOLS::on_battery_clicked()
+{
+    tc_get_battery();
+}
+
+void BLE_TOOLS::on_breakdown_clicked()
+{
+    tc_get_breakdown();
+}
+
+void BLE_TOOLS::on_restart_clicked()
+{
+    tc_set_reboot();
 }
