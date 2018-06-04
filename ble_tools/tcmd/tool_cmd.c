@@ -155,3 +155,7 @@ void tc_set_normal_mode()
     tc_send(CMD_FAC_TO_NORMAL, 0, NULL, 0);
 }
 
+void tc_erase_chip()
+{
+    tc_send(CMD_ERASE_CHIP, 0, NULL, 0);
+}

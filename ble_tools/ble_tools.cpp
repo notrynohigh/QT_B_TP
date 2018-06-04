@@ -605,3 +605,8 @@ void BLE_TOOLS::on_restart_clicked()
 {
     tc_set_reboot();
 }
+
+void BLE_TOOLS::on_erase_chip_clicked()
+{
+    tc_erase_chip();
+}

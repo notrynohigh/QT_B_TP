@@ -61,6 +61,7 @@ public:
     QPushButton *breakdown;
     QPushButton *restart;
     QRadioButton *namefilter;
+    QPushButton *erase_chip;
     QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout;
     QListWidget *listWidget;
@@ -74,7 +75,7 @@ public:
     QVBoxLayout *verticalLayout_4;
     QTextEdit *protocol_result;
     QPushButton *clear_proto_result;
-    QWidget *widget;
+    QWidget *layoutWidget5;
     QVBoxLayout *verticalLayout_5;
     QListWidget *mac_list;
     QPushButton *savemac;
@@ -200,6 +201,9 @@ public:
         namefilter->setGeometry(QRect(440, 140, 111, 31));
         namefilter->setAcceptDrops(false);
         namefilter->setChecked(false);
+        erase_chip = new QPushButton(Cmd);
+        erase_chip->setObjectName(QStringLiteral("erase_chip"));
+        erase_chip->setGeometry(QRect(120, 110, 75, 23));
         layoutWidget2 = new QWidget(centralWidget);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
         layoutWidget2->setGeometry(QRect(34, 62, 331, 311));
@@ -259,20 +263,20 @@ public:
 
         verticalLayout_4->addWidget(clear_proto_result);
 
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(420, 490, 1061, 201));
-        verticalLayout_5 = new QVBoxLayout(widget);
+        layoutWidget5 = new QWidget(centralWidget);
+        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(420, 490, 1061, 201));
+        verticalLayout_5 = new QVBoxLayout(layoutWidget5);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
-        mac_list = new QListWidget(widget);
+        mac_list = new QListWidget(layoutWidget5);
         mac_list->setObjectName(QStringLiteral("mac_list"));
 
         verticalLayout_5->addWidget(mac_list);
 
-        savemac = new QPushButton(widget);
+        savemac = new QPushButton(layoutWidget5);
         savemac->setObjectName(QStringLiteral("savemac"));
 
         verticalLayout_5->addWidget(savemac);
@@ -316,6 +320,7 @@ public:
         breakdown->setText(QApplication::translate("BLE_TOOLS", "\347\241\254\344\273\266\346\243\200\346\265\213", Q_NULLPTR));
         restart->setText(QApplication::translate("BLE_TOOLS", "\351\207\215\345\220\257", Q_NULLPTR));
         namefilter->setText(QApplication::translate("BLE_TOOLS", "\346\211\253\346\217\217Odun_xxxx", Q_NULLPTR));
+        erase_chip->setText(QApplication::translate("BLE_TOOLS", "\346\223\246\351\231\244FLASH", Q_NULLPTR));
         scan->setText(QApplication::translate("BLE_TOOLS", "Scan", Q_NULLPTR));
         clear_list->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));
         clear_log->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));

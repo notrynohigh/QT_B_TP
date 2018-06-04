@@ -66,6 +66,8 @@ private slots:
 
     void on_restart_clicked();
 
+    void on_erase_chip_clicked();
+
 private:
     Ui::BLE_TOOLS *ui;
     QTimer *quartTimer;

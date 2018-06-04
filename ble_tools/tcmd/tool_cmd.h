@@ -427,7 +427,7 @@ void tc_get_breakdown();
 void tc_set_reboot();
 
 void tc_set_normal_mode();
-
+void tc_erase_chip();
 #ifdef __cplusplus
 }
 #endif
