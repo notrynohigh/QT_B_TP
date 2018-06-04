@@ -44,6 +44,8 @@ extern "C" {
 #define CMD_GET_ERR_INFO        0X52
 #define CMD_ENABLE_SAMPLE       0X53
 #define CMD_UPLOAD_SAMPLE       0X54
+#define CMD_FAC_TO_NORMAL       0X55
+
 
 #define CMD_TOOL_SCAN           0XA0
 #define CMD_TOOL_CONNECT        0XA1
@@ -423,6 +425,9 @@ void tc_get_battery();
 
 void tc_get_breakdown();
 void tc_set_reboot();
+
+void tc_set_normal_mode();
+
 #ifdef __cplusplus
 }
 #endif

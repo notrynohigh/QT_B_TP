@@ -23,6 +23,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
@@ -59,6 +60,7 @@ public:
     QPushButton *battery;
     QPushButton *breakdown;
     QPushButton *restart;
+    QRadioButton *namefilter;
     QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout;
     QListWidget *listWidget;
@@ -72,6 +74,10 @@ public:
     QVBoxLayout *verticalLayout_4;
     QTextEdit *protocol_result;
     QPushButton *clear_proto_result;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_5;
+    QListWidget *mac_list;
+    QPushButton *savemac;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -124,7 +130,7 @@ public:
 
         Cmd = new QGroupBox(centralWidget);
         Cmd->setObjectName(QStringLiteral("Cmd"));
-        Cmd->setGeometry(QRect(420, 20, 711, 181));
+        Cmd->setGeometry(QRect(420, 20, 591, 181));
         setDate = new QPushButton(Cmd);
         setDate->setObjectName(QStringLiteral("setDate"));
         setDate->setGeometry(QRect(30, 20, 75, 23));
@@ -173,7 +179,7 @@ public:
 
         conn_label = new QLabel(Cmd);
         conn_label->setObjectName(QStringLiteral("conn_label"));
-        conn_label->setGeometry(QRect(610, 10, 91, 21));
+        conn_label->setGeometry(QRect(460, 110, 91, 21));
         RT_START = new QPushButton(Cmd);
         RT_START->setObjectName(QStringLiteral("RT_START"));
         RT_START->setGeometry(QRect(450, 20, 101, 31));
@@ -189,6 +195,11 @@ public:
         restart = new QPushButton(Cmd);
         restart->setObjectName(QStringLiteral("restart"));
         restart->setGeometry(QRect(120, 80, 75, 23));
+        namefilter = new QRadioButton(Cmd);
+        namefilter->setObjectName(QStringLiteral("namefilter"));
+        namefilter->setGeometry(QRect(440, 140, 111, 31));
+        namefilter->setAcceptDrops(false);
+        namefilter->setChecked(false);
         layoutWidget2 = new QWidget(centralWidget);
         layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
         layoutWidget2->setGeometry(QRect(34, 62, 331, 311));
@@ -232,7 +243,7 @@ public:
 
         layoutWidget4 = new QWidget(centralWidget);
         layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(420, 220, 1061, 461));
+        layoutWidget4->setGeometry(QRect(420, 220, 1061, 251));
         verticalLayout_4 = new QVBoxLayout(layoutWidget4);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -247,6 +258,24 @@ public:
         clear_proto_result->setObjectName(QStringLiteral("clear_proto_result"));
 
         verticalLayout_4->addWidget(clear_proto_result);
+
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(420, 490, 1061, 201));
+        verticalLayout_5 = new QVBoxLayout(widget);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        mac_list = new QListWidget(widget);
+        mac_list->setObjectName(QStringLiteral("mac_list"));
+
+        verticalLayout_5->addWidget(mac_list);
+
+        savemac = new QPushButton(widget);
+        savemac->setObjectName(QStringLiteral("savemac"));
+
+        verticalLayout_5->addWidget(savemac);
 
         BLE_TOOLS->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BLE_TOOLS);
@@ -270,26 +299,28 @@ public:
         BLE_TOOLS->setWindowTitle(QApplication::translate("BLE_TOOLS", "BLE_TOOLS", Q_NULLPTR));
         refresh_com->setText(QApplication::translate("BLE_TOOLS", "Refresh", Q_NULLPTR));
         opencom->setText(QApplication::translate("BLE_TOOLS", "Open", Q_NULLPTR));
-        Cmd->setTitle(QApplication::translate("BLE_TOOLS", "Protocol_Test", Q_NULLPTR));
-        setDate->setText(QApplication::translate("BLE_TOOLS", "SetDate", Q_NULLPTR));
-        getdata->setText(QApplication::translate("BLE_TOOLS", "GetDate", Q_NULLPTR));
-        version->setText(QApplication::translate("BLE_TOOLS", "GetVersion", Q_NULLPTR));
-        AdjustChip->setText(QApplication::translate("BLE_TOOLS", "AdjustChip", Q_NULLPTR));
-        wave->setText(QApplication::translate("BLE_TOOLS", "DrawWave", Q_NULLPTR));
-        StopDrawWave->setText(QApplication::translate("BLE_TOOLS", "StopDrawWave", Q_NULLPTR));
-        updateRun->setText(QApplication::translate("BLE_TOOLS", "SynRun", Q_NULLPTR));
-        updateWalk->setText(QApplication::translate("BLE_TOOLS", "SynWalk", Q_NULLPTR));
-        total_steps->setText(QApplication::translate("BLE_TOOLS", "TotalStep", Q_NULLPTR));
+        Cmd->setTitle(QApplication::translate("BLE_TOOLS", "\346\214\207\344\273\244\346\265\213\350\257\225", Q_NULLPTR));
+        setDate->setText(QApplication::translate("BLE_TOOLS", "\350\256\276\347\275\256\346\227\266\351\227\264", Q_NULLPTR));
+        getdata->setText(QApplication::translate("BLE_TOOLS", "\350\216\267\345\217\226\346\227\266\351\227\264", Q_NULLPTR));
+        version->setText(QApplication::translate("BLE_TOOLS", "\350\216\267\345\217\226\347\211\210\346\234\254\345\217\267", Q_NULLPTR));
+        AdjustChip->setText(QApplication::translate("BLE_TOOLS", "\350\212\257\347\211\207\346\240\241\345\207\206", Q_NULLPTR));
+        wave->setText(QApplication::translate("BLE_TOOLS", "\347\273\230\345\210\266\346\263\242\345\275\242", Q_NULLPTR));
+        StopDrawWave->setText(QApplication::translate("BLE_TOOLS", "\347\273\230\345\210\266\346\263\242\345\275\242\345\201\234\346\255\242", Q_NULLPTR));
+        updateRun->setText(QApplication::translate("BLE_TOOLS", "\345\220\214\346\255\245\350\267\221\346\255\245\346\225\260\346\215\256", Q_NULLPTR));
+        updateWalk->setText(QApplication::translate("BLE_TOOLS", "\345\220\214\346\255\245\350\265\260\350\267\257\346\225\260\346\215\256", Q_NULLPTR));
+        total_steps->setText(QApplication::translate("BLE_TOOLS", "\350\216\267\345\217\226\346\200\273\346\255\245\346\225\260", Q_NULLPTR));
         conn_label->setText(QApplication::translate("BLE_TOOLS", "Disconnected", Q_NULLPTR));
-        RT_START->setText(QApplication::translate("BLE_TOOLS", "RealTimeStart", Q_NULLPTR));
-        RT_END->setText(QApplication::translate("BLE_TOOLS", "RealTimeEnd", Q_NULLPTR));
-        battery->setText(QApplication::translate("BLE_TOOLS", "Battery", Q_NULLPTR));
-        breakdown->setText(QApplication::translate("BLE_TOOLS", "Breakdown", Q_NULLPTR));
-        restart->setText(QApplication::translate("BLE_TOOLS", "Restart", Q_NULLPTR));
+        RT_START->setText(QApplication::translate("BLE_TOOLS", "\345\274\200\345\220\257\345\256\236\346\227\266\346\250\241\345\274\217", Q_NULLPTR));
+        RT_END->setText(QApplication::translate("BLE_TOOLS", "\345\256\236\346\227\266\346\250\241\345\274\217\347\273\223\346\235\237", Q_NULLPTR));
+        battery->setText(QApplication::translate("BLE_TOOLS", "\347\224\265\346\261\240\347\224\265\351\207\217", Q_NULLPTR));
+        breakdown->setText(QApplication::translate("BLE_TOOLS", "\347\241\254\344\273\266\346\243\200\346\265\213", Q_NULLPTR));
+        restart->setText(QApplication::translate("BLE_TOOLS", "\351\207\215\345\220\257", Q_NULLPTR));
+        namefilter->setText(QApplication::translate("BLE_TOOLS", "\346\211\253\346\217\217Odun_xxxx", Q_NULLPTR));
         scan->setText(QApplication::translate("BLE_TOOLS", "Scan", Q_NULLPTR));
         clear_list->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));
         clear_log->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));
         clear_proto_result->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));
+        savemac->setText(QApplication::translate("BLE_TOOLS", "Save", Q_NULLPTR));
     } // retranslateUi
 
 };

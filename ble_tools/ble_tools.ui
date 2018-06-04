@@ -80,12 +80,12 @@
      <rect>
       <x>420</x>
       <y>20</y>
-      <width>711</width>
+      <width>591</width>
       <height>181</height>
      </rect>
     </property>
     <property name="title">
-     <string>Protocol_Test</string>
+     <string>指令测试</string>
     </property>
     <widget class="QPushButton" name="setDate">
      <property name="geometry">
@@ -97,7 +97,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>SetDate</string>
+      <string>设置时间</string>
      </property>
     </widget>
     <widget class="QPushButton" name="getdata">
@@ -110,7 +110,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>GetDate</string>
+      <string>获取时间</string>
      </property>
     </widget>
     <widget class="QPushButton" name="version">
@@ -123,7 +123,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>GetVersion</string>
+      <string>获取版本号</string>
      </property>
     </widget>
     <widget class="QPushButton" name="AdjustChip">
@@ -136,7 +136,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>AdjustChip</string>
+      <string>芯片校准</string>
      </property>
     </widget>
     <widget class="QPushButton" name="wave">
@@ -149,7 +149,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>DrawWave</string>
+      <string>绘制波形</string>
      </property>
     </widget>
     <widget class="QPushButton" name="StopDrawWave">
@@ -162,7 +162,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>StopDrawWave</string>
+      <string>绘制波形停止</string>
      </property>
     </widget>
     <widget class="QWidget" name="layoutWidget">
@@ -181,21 +181,21 @@
       <item>
        <widget class="QPushButton" name="updateRun">
         <property name="text">
-         <string>SynRun</string>
+         <string>同步跑步数据</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="updateWalk">
         <property name="text">
-         <string>SynWalk</string>
+         <string>同步走路数据</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="total_steps">
         <property name="text">
-         <string>TotalStep</string>
+         <string>获取总步数</string>
         </property>
        </widget>
       </item>
@@ -204,8 +204,8 @@
     <widget class="QLabel" name="conn_label">
      <property name="geometry">
       <rect>
-       <x>610</x>
-       <y>10</y>
+       <x>460</x>
+       <y>110</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -224,7 +224,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>RealTimeStart</string>
+      <string>开启实时模式</string>
      </property>
     </widget>
     <widget class="QPushButton" name="RT_END">
@@ -237,7 +237,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>RealTimeEnd</string>
+      <string>实时模式结束</string>
      </property>
     </widget>
     <widget class="QPushButton" name="battery">
@@ -250,7 +250,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Battery</string>
+      <string>电池电量</string>
      </property>
     </widget>
     <widget class="QPushButton" name="breakdown">
@@ -263,7 +263,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Breakdown</string>
+      <string>硬件检测</string>
      </property>
     </widget>
     <widget class="QPushButton" name="restart">
@@ -276,7 +276,26 @@
       </rect>
      </property>
      <property name="text">
-      <string>Restart</string>
+      <string>重启</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="namefilter">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>140</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="acceptDrops">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>扫描Odun_xxxx</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -337,7 +356,7 @@
       <x>420</x>
       <y>220</y>
       <width>1061</width>
-      <height>461</height>
+      <height>251</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -348,6 +367,28 @@
       <widget class="QPushButton" name="clear_proto_result">
        <property name="text">
         <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>490</y>
+      <width>1061</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QListWidget" name="mac_list"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="savemac">
+       <property name="text">
+        <string>Save</string>
        </property>
       </widget>
      </item>

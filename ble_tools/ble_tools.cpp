@@ -18,6 +18,10 @@ extern "C" void b_tp_callback(uint8_t *pbuf, uint32_t len);
 uartClass uartModule;
 bleDev  bleDevModule;
 BLE_TOOLS *tmpClass;
+bleDevInfo_t g_tmp_dev;
+
+bool collect_flag = false;
+char collect_status = 0;
 
 BLE_TOOLS::BLE_TOOLS(QWidget *parent) :
     QMainWindow(parent),
@@ -76,14 +80,30 @@ void BLE_TOOLS::on_scan_clicked()
         {
             ui->scan->setText("Stop");
             tc_scan_start();
+            if(ui->namefilter->isChecked())
+            {
+                collect_flag = true;
+                collect_status = 1;
+            }
+            else
+            {
+                collect_flag = false;
+            }
         }
         else
         {
             ui->scan->setText("Scan");
             tc_scan_stop();
+            if(ui->namefilter->isChecked())
+            {
+                collect_flag = false;
+                collect_status = 0;
+            }
         }
     }
 }
+
+char _100ms_delay = 0;
 
 void BLE_TOOLS::timer_timeout()
 {
@@ -107,6 +127,21 @@ void BLE_TOOLS::timer_timeout()
         time20ms_count = 0;
         updateBleDevList();
     }
+
+
+    if(collect_status == 2)
+    {
+        _100ms_delay++;
+        if(_100ms_delay > 10)
+        {
+            pro_connect_info_t connect_info;
+            memcpy(connect_info.addr, g_tmp_dev.addr, 6);
+            tc_send(CMD_TOOL_CONNECT, 0, (uint8_t *)&connect_info, sizeof(pro_connect_info_t));
+            collect_status = 3;
+            _100ms_delay = 0;
+        }
+    }
+
 
     dispatch_cmd(t_buf, t_buf_len);
     t_buf_len = 0;
@@ -175,7 +210,7 @@ static pro_rt_detail_response_t s_deteil = {
 
 void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
 {
-    bleDevInfo_t dev;
+    bleDevList_t *ptmp = nullptr;
     uint8_t proTable[256];
     int pro_len;
     uint8_t off = STRUCT_OFF(tcmd_struct_t, buf);
@@ -192,21 +227,54 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             pro_conn_sta_t *resp = (pro_conn_sta_t *)(result->buf);
             if(resp->status == 0x1)
             {
+                if(collect_status == 3)
+                {
+                    collect_status = 4;
+                    tc_get_breakdown();
+                }
+
                 ui->conn_label->setText("Connected");
             }
             else
             {
                 ui->conn_label->setText("Disconnected");
+                if(collect_status == 5 && collect_flag)
+                {
+                    tc_scan_start();
+                    collect_status = 1;
+                }
             }
         }
         break;
     case CMD_TOOL_SCAN:
         {
             pro_scan_response_t *resp = (pro_scan_response_t *)(result->buf);
-            memcpy(dev.addr, resp->addr, 6);
-            dev.rssi = resp->rssi;
-            memcpy(dev.name, resp->name, 16);
-            bleDevModule.bleAddDev(dev);
+            if(collect_flag && collect_status == 1)
+            {
+                if(0 == strncmp((char *)resp->name, "Odun_xxxx", 9))
+                {
+                    g_tmp_dev.rssi = resp->rssi;
+                    memcpy(g_tmp_dev.name, resp->name, 16);
+                    ptmp = bleDevModule.bleFindFromList(g_tmp_dev);
+                    if(ptmp != nullptr)
+                    {
+                        break;
+                    }
+                    collect_status = 2;
+                    tc_scan_stop();
+                }
+                else
+                {
+                    break;
+                }
+            }
+            else if(!collect_flag)
+            {
+                memcpy(g_tmp_dev.addr, resp->addr, 6);
+                g_tmp_dev.rssi = resp->rssi;
+                memcpy(g_tmp_dev.name, resp->name, 16);
+                bleDevModule.bleAddDev(g_tmp_dev);
+            }
         }
         break;
     case CMD_GET_TIME:
@@ -355,6 +423,26 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             pro_breakdown_info_t *pdeteil = (pro_breakdown_info_t *)(result->buf);
             pro_len = sprintf((char *)proTable, "flash ok?:\t%d\tmems ok?\t%d\t",pdeteil->flash_breakdown, pdeteil->mems_breakdown);
             textShowString(proTable, pro_len);
+            if(collect_status == 4)
+            {
+                if(pdeteil->flash_breakdown == 0 && pdeteil->mems_breakdown == 0)
+                {
+                    QString str1 = QByteArray::fromRawData((const char *)(g_tmp_dev.addr), 6).toHex().data();
+                    QString str2 = "";
+                    for(int i = 0;i < str1.length();i += 2)
+                    {
+                        str2 += str1.mid(i, 2) + ':';
+                    }
+                    ui->mac_list->addItem(str2);
+                    tc_set_normal_mode();
+                }
+                else
+                {
+                    bleDevModule.bleAddDev(g_tmp_dev);
+                    tc_set_reboot();
+                }
+                collect_status = 5;
+            }
         }
         break;
     default:
