@@ -227,13 +227,15 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             pro_conn_sta_t *resp = (pro_conn_sta_t *)(result->buf);
             if(resp->status == 0x1)
             {
+                ui->conn_label->setText("Connected");
+            }
+            else if(resp->status == 0x2)
+            {
                 if(collect_status == 3)
                 {
                     collect_status = 4;
                     tc_get_breakdown();
                 }
-
-                ui->conn_label->setText("Connected");
             }
             else
             {
@@ -255,6 +257,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
                 {
                     g_tmp_dev.rssi = resp->rssi;
                     memcpy(g_tmp_dev.name, resp->name, 16);
+                    memcpy(g_tmp_dev.addr, resp->addr, 6);
                     ptmp = bleDevModule.bleFindFromList(g_tmp_dev);
                     if(ptmp != nullptr)
                     {
@@ -428,12 +431,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
                 if(pdeteil->flash_breakdown == 0 && pdeteil->mems_breakdown == 0)
                 {
                     QString str1 = QByteArray::fromRawData((const char *)(g_tmp_dev.addr), 6).toHex().data();
-                    QString str2 = "";
-                    for(int i = 0;i < str1.length();i += 2)
-                    {
-                        str2 += str1.mid(i, 2) + ':';
-                    }
-                    ui->mac_list->addItem(str2);
+                    ui->mac_list->addItem(str1);
                     tc_set_normal_mode();
                 }
                 else
