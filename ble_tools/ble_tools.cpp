@@ -12,6 +12,8 @@
 #include <qlistwidget.h>
 #include <qdatetime.h>
 
+#include <QFileInfo>
+
 extern "C" void b_tp_port_uart_send(uint8_t *pbuf, uint32_t len);
 extern "C" void b_tp_callback(uint8_t *pbuf, uint32_t len);
 
@@ -49,6 +51,7 @@ BLE_TOOLS::~BLE_TOOLS()
     {
         uartModule.uartClosePort();
     }
+    save_mac();
     bleDevModule.clear();
     delete ui;
 }
@@ -430,7 +433,12 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             {
                 if(pdeteil->flash_breakdown == 0 && pdeteil->mems_breakdown == 0)
                 {
-                    QString str1 = QByteArray::fromRawData((const char *)(g_tmp_dev.addr), 6).toHex().data();
+                    char tmp_table[6];
+                    for(char i = 0;i < 6;i++)
+                    {
+                        tmp_table[i] = g_tmp_dev.addr[5 - i];
+                    }
+                    QString str1 = QByteArray::fromRawData((const char *)(tmp_table), 6).toHex().data();
                     ui->mac_list->addItem(str1);
                     tc_set_normal_mode();
                 }
@@ -478,7 +486,25 @@ void BLE_TOOLS::on_clear_list_clicked()
     }
 }
 
-
+void BLE_TOOLS::save_mac()
+{
+    QFile file("C:\\Odun_mac.txt");
+    if(! file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+    {
+        textShowString((uint8_t *)"failed to open file", 19);
+        return;
+    }
+    int len = ui->mac_list->count();
+    QString item_text;
+    for(int i = 0;i < len;i++)
+    {
+        item_text = ui->mac_list->item(i)->text();
+        item_text += "\r\n";
+        file.write((const char *)item_text.toLocal8Bit());
+    }
+    file.close();
+    textShowString((uint8_t *)"save successfully", 17);
+}
 
 
 void BLE_TOOLS::on_listWidget_doubleClicked(const QModelIndex &index)
@@ -607,4 +633,10 @@ void BLE_TOOLS::on_restart_clicked()
 void BLE_TOOLS::on_erase_chip_clicked()
 {
     tc_erase_chip();
+}
+
+void BLE_TOOLS::on_savemac_clicked()
+{
+    save_mac();
+    ui->mac_list->clear();
 }

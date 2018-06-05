@@ -24,6 +24,9 @@ public:
     void textShowString(uint8_t *pbuf, uint32_t len);
     void updateBleDevList();
     void dispatch_cmd(uint8_t *pbuf, uint32_t len);
+
+    void save_mac();
+
 private slots:
     void on_opencom_clicked();
     void on_scan_clicked();
@@ -67,6 +70,8 @@ private slots:
     void on_restart_clicked();
 
     void on_erase_chip_clicked();
+
+    void on_savemac_clicked();
 
 private:
     Ui::BLE_TOOLS *ui;
