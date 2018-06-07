@@ -159,3 +159,8 @@ void tc_erase_chip()
 {
     tc_send(CMD_ERASE_CHIP, 0, NULL, 0);
 }
+
+void tc_send_hb()
+{
+    tc_send(CMD_HEART, 0, NULL, 0);
+}

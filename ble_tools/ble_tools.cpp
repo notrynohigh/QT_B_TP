@@ -128,6 +128,7 @@ void BLE_TOOLS::timer_timeout()
     if(time20ms_count > 50)
     {
         time20ms_count = 0;
+        tc_send_hb();
         updateBleDevList();
     }
 

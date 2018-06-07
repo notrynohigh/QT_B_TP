@@ -428,6 +428,9 @@ void tc_set_reboot();
 
 void tc_set_normal_mode();
 void tc_erase_chip();
+
+void tc_send_hb();
+
 #ifdef __cplusplus
 }
 #endif
