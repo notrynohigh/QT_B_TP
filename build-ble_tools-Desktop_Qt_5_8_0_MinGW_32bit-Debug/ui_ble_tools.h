@@ -95,7 +95,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(BLE_TOOLS->sizePolicy().hasHeightForWidth());
         BLE_TOOLS->setSizePolicy(sizePolicy);
-        BLE_TOOLS->setMinimumSize(QSize(1162, 759));
+        BLE_TOOLS->setMinimumSize(QSize(1500, 759));
         BLE_TOOLS->setMaximumSize(QSize(1500, 759));
         QIcon icon;
         icon.addFile(QStringLiteral(":/Icon/resources/ble_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
