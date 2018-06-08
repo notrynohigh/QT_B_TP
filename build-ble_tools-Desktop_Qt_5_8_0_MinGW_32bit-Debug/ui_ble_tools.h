@@ -79,6 +79,8 @@ public:
     QVBoxLayout *verticalLayout_5;
     QListWidget *mac_list;
     QPushButton *savemac;
+    QPushButton *resetid;
+    QPushButton *setID;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -281,6 +283,12 @@ public:
 
         verticalLayout_5->addWidget(savemac);
 
+        resetid = new QPushButton(centralWidget);
+        resetid->setObjectName(QStringLiteral("resetid"));
+        resetid->setGeometry(QRect(1030, 50, 101, 31));
+        setID = new QPushButton(centralWidget);
+        setID->setObjectName(QStringLiteral("setID"));
+        setID->setGeometry(QRect(1030, 100, 101, 31));
         BLE_TOOLS->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BLE_TOOLS);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -326,6 +334,8 @@ public:
         clear_log->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));
         clear_proto_result->setText(QApplication::translate("BLE_TOOLS", "Clear", Q_NULLPTR));
         savemac->setText(QApplication::translate("BLE_TOOLS", "Save", Q_NULLPTR));
+        resetid->setText(QApplication::translate("BLE_TOOLS", "ResetId", Q_NULLPTR));
+        setID->setText(QApplication::translate("BLE_TOOLS", "SetId", Q_NULLPTR));
     } // retranslateUi
 
 };

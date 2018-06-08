@@ -641,3 +641,13 @@ void BLE_TOOLS::on_savemac_clicked()
     save_mac();
     ui->mac_list->clear();
 }
+
+void BLE_TOOLS::on_setID_clicked()
+{
+    tc_set_id(0x12345678);
+}
+
+void BLE_TOOLS::on_resetid_clicked()
+{
+    tc_set_id(0xffffffff);
+}

@@ -164,3 +164,11 @@ void tc_send_hb()
 {
     tc_send(CMD_HEART, 0, NULL, 0);
 }
+
+
+void tc_set_id(uint32_t id)
+{
+    pro_user_id_t id_tmp;
+    id_tmp.user_id = id;
+    tc_send(CMD_SET_USER_ID, 0, (uint8_t *)&id_tmp, sizeof(pro_user_id_t));
+}

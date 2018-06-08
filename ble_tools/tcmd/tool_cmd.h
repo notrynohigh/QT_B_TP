@@ -431,6 +431,8 @@ void tc_erase_chip();
 
 void tc_send_hb();
 
+void tc_set_id(uint32_t id);
+
 #ifdef __cplusplus
 }
 #endif

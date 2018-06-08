@@ -73,6 +73,10 @@ private slots:
 
     void on_savemac_clicked();
 
+    void on_setID_clicked();
+
+    void on_resetid_clicked();
+
 private:
     Ui::BLE_TOOLS *ui;
     QTimer *quartTimer;
