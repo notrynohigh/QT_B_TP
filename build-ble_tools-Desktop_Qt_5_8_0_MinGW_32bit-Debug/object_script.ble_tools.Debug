@@ -7,6 +7,7 @@ INPUT(
 ./debug\uartclass.o
 ./debug\tool_cmd.o
 ./debug\bledev.o
+./debug\calendar.o
 ./debug\qrc_icon.o
 ./debug\moc_ble_tools.o
 );

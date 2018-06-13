@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     b_tp/b_tp_port/b_tp_port.c \
     uartclass.cpp \
     tcmd/tool_cmd.c \
-    bledev.cpp
+    bledev.cpp \
+    utc2000/calendar.c
 
 HEADERS  += ble_tools.h \
     b_tp/inc/b_tp.h \
@@ -39,7 +40,8 @@ HEADERS  += ble_tools.h \
     b_tp/b_tp_port/b_tp_port.h \
     uartclass.h \
     tcmd/tool_cmd.h \
-    bledev.h
+    bledev.h \
+    utc2000/calendar.h
 
 FORMS    += ble_tools.ui
 

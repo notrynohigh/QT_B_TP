@@ -95,6 +95,10 @@ void tc_syn_walk_go_on()
     tc_send(CMD_SYN_WALK_DATA, CMD_STATUS_ACK, NULL, 0);
 }
 
+void tc_syn_err_go_on()
+{
+    tc_send(CMD_GET_ERR_INFO, CMD_STATUS_ACK, NULL, 0);
+}
 
 
 void tc_syn_run_step(uint8_t month, uint8_t day, uint8_t s_hour, uint8_t s_minute, uint8_t e_hour, uint8_t e_minute)
@@ -172,3 +176,11 @@ void tc_set_id(uint32_t id)
     id_tmp.user_id = id;
     tc_send(CMD_SET_USER_ID, 0, (uint8_t *)&id_tmp, sizeof(pro_user_id_t));
 }
+
+void tc_get_restart()
+{
+    pro_req_err_code_t tmp;
+    tmp.utc = 0;
+    tc_send(CMD_GET_ERR_INFO, 0, (uint8_t *)&tmp, sizeof(pro_req_err_code_t));
+}
+

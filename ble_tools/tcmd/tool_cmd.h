@@ -433,6 +433,10 @@ void tc_send_hb();
 
 void tc_set_id(uint32_t id);
 
+void tc_get_restart();
+
+void tc_syn_err_go_on();
+
 #ifdef __cplusplus
 }
 #endif

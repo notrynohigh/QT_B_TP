@@ -11,7 +11,7 @@
 #include "bledev.h"
 #include <qlistwidget.h>
 #include <qdatetime.h>
-
+#include "utc2000/calendar.h"
 #include <QFileInfo>
 
 extern "C" void b_tp_port_uart_send(uint8_t *pbuf, uint32_t len);
@@ -452,6 +452,25 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             }
         }
         break;
+    case CMD_GET_ERR_INFO:
+        {
+            if(result->status == CMD_STATUS_SUCCESS || result->status == CMD_STATUS_LAST_ONE)
+            {
+                calendar_utc_struct_t utc_struct;
+                pro_upload_err_code_t *perrcode = (pro_upload_err_code_t *)(result->buf);
+                uint8_t j = 0, i = (len - off) / sizeof(pro_walk_info_t);
+                for(j = 0;j < i;j++)
+                {
+                    calendar_utc2struct(&utc_struct, perrcode->err_code[j].utc);
+                    pro_len = sprintf((char *)proTable, "%02d-%02d\t%02d:%02d\t%d",
+                                      utc_struct.month, utc_struct.day,utc_struct.hour, utc_struct.minutes,
+                                      perrcode->err_code[j].err_code);
+                    textShowString(proTable, pro_len);
+                }
+                tc_syn_err_go_on();
+            }
+        }
+        break;
     default:
         {
             tc_send(CMD_TOOL_SCAN, CMD_STATUS_UNKNOWN, NULL, 0);
@@ -650,4 +669,9 @@ void BLE_TOOLS::on_setID_clicked()
 void BLE_TOOLS::on_resetid_clicked()
 {
     tc_set_id(0xffffffff);
+}
+
+void BLE_TOOLS::on_restart_record_clicked()
+{
+    tc_get_restart();
 }

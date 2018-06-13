@@ -7,6 +7,7 @@ INPUT(
 ./release\uartclass.o
 ./release\tool_cmd.o
 ./release\bledev.o
+./release\calendar.o
 ./release\qrc_icon.o
 ./release\moc_ble_tools.o
 );
