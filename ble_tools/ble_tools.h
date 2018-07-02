@@ -79,6 +79,8 @@ private slots:
 
     void on_restart_record_clicked();
 
+    void on_getalgoparam_clicked();
+
 private:
     Ui::BLE_TOOLS *ui;
     QTimer *quartTimer;

@@ -184,3 +184,11 @@ void tc_get_restart()
     tc_send(CMD_GET_ERR_INFO, 0, (uint8_t *)&tmp, sizeof(pro_req_err_code_t));
 }
 
+void tc_get_algo_param()
+{
+    tc_send(CMD_GET_ALGO_PARAM, 0, NULL, 0);
+}
+
+
+
+

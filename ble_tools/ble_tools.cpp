@@ -319,8 +319,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
     case CMD_GET_TOTAL_STEP:
         {
             pro_total_step_response_t *respversion = (pro_total_step_response_t *)(result->buf);
-            pro_len = sprintf((char *)proTable, "%02d-%02d\ttotal:%d\trun:%d\trace:%d\twalk:%d",respversion->month, respversion->day, respversion->total_step, respversion->run
-                              , respversion->race, respversion->walk);
+            pro_len = sprintf((char *)proTable, "%02d-%02d\ttotal:%d",respversion->month, respversion->day, respversion->total_step);
             textShowString(proTable, pro_len);
         }
         break;
@@ -469,6 +468,14 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
                 }
                 tc_syn_err_go_on();
             }
+        }
+        break;
+    case CMD_GET_ALGO_PARAM:
+        {
+            pro_get_algo_param_t *pdeteil = (pro_get_algo_param_t *)(result->buf);
+            pro_len = sprintf((char *)proTable, "xoff:%d\tyoff:%d\tzoff:%d",
+                              pdeteil->x_off, pdeteil->y_off, pdeteil->z_off);
+            textShowString(proTable, pro_len);
         }
         break;
     default:
@@ -674,4 +681,9 @@ void BLE_TOOLS::on_resetid_clicked()
 void BLE_TOOLS::on_restart_record_clicked()
 {
     tc_get_restart();
+}
+
+void BLE_TOOLS::on_getalgoparam_clicked()
+{
+    tc_get_algo_param();
 }

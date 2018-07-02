@@ -45,7 +45,7 @@ extern "C" {
 #define CMD_ENABLE_SAMPLE       0X53
 #define CMD_UPLOAD_SAMPLE       0X54
 #define CMD_FAC_TO_NORMAL       0X55
-
+#define CMD_GET_ALGO_PARAM      0X56
 
 #define CMD_TOOL_SCAN           0XA0
 #define CMD_TOOL_CONNECT        0XA1
@@ -118,7 +118,7 @@ typedef struct
     uint16_t internal_code;
     uint32_t hw_version;
     uint32_t fw_version;
-    uint16_t algo_version;
+    uint32_t algo_version;
     uint16_t protocol_version;
 }pro_version_t;
 
@@ -161,9 +161,6 @@ typedef struct
     uint8_t  month;
     uint8_t  day;
     uint32_t total_step;
-    uint32_t walk;
-    uint32_t race;
-    uint32_t run;
 }pro_total_step_response_t;
 
 
@@ -390,6 +387,13 @@ typedef struct
     uint8_t mems_breakdown;
 }pro_breakdown_info_t;
 
+typedef struct
+{
+    int8_t x_off;
+    int8_t y_off;
+    int8_t z_off;
+}pro_get_algo_param_t;
+
 #pragma pack()
 
 
@@ -436,6 +440,8 @@ void tc_set_id(uint32_t id);
 void tc_get_restart();
 
 void tc_syn_err_go_on();
+
+void tc_get_algo_param();
 
 #ifdef __cplusplus
 }
