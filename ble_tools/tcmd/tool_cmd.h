@@ -46,6 +46,7 @@ extern "C" {
 #define CMD_UPLOAD_SAMPLE       0X54
 #define CMD_FAC_TO_NORMAL       0X55
 #define CMD_GET_ALGO_PARAM      0X56
+#define CMD_GET_USER_ID         0X57
 
 #define CMD_TOOL_SCAN           0XA0
 #define CMD_TOOL_CONNECT        0XA1
@@ -394,6 +395,17 @@ typedef struct
     int8_t z_off;
 }pro_get_algo_param_t;
 
+typedef struct
+{
+    uint8_t type;
+}pro_draw_wave_type_t;
+
+typedef struct
+{
+    uint32_t user_id;
+}pro_get_user_id_t;
+
+
 #pragma pack()
 
 
@@ -442,7 +454,7 @@ void tc_get_restart();
 void tc_syn_err_go_on();
 
 void tc_get_algo_param();
-
+void tc_get_user_id();
 #ifdef __cplusplus
 }
 #endif

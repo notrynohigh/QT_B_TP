@@ -83,6 +83,7 @@ public:
     QPushButton *setID;
     QPushButton *restart_record;
     QPushButton *getalgoparam;
+    QPushButton *getuserid;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -297,6 +298,9 @@ public:
         getalgoparam = new QPushButton(centralWidget);
         getalgoparam->setObjectName(QStringLiteral("getalgoparam"));
         getalgoparam->setGeometry(QRect(1034, 10, 91, 31));
+        getuserid = new QPushButton(centralWidget);
+        getuserid->setObjectName(QStringLiteral("getuserid"));
+        getuserid->setGeometry(QRect(1030, 180, 101, 31));
         BLE_TOOLS->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BLE_TOOLS);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -346,6 +350,7 @@ public:
         setID->setText(QApplication::translate("BLE_TOOLS", "SetId", Q_NULLPTR));
         restart_record->setText(QApplication::translate("BLE_TOOLS", "GetRestart", Q_NULLPTR));
         getalgoparam->setText(QApplication::translate("BLE_TOOLS", "GetAlgoParam", Q_NULLPTR));
+        getuserid->setText(QApplication::translate("BLE_TOOLS", "GetUserId", Q_NULLPTR));
     } // retranslateUi
 
 };

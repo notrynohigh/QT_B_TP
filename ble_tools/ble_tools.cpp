@@ -478,6 +478,14 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             textShowString(proTable, pro_len);
         }
         break;
+    case CMD_GET_USER_ID:
+        {
+            pro_get_user_id_t *pdeteil = (pro_get_user_id_t *)(result->buf);
+            pro_len = sprintf((char *)proTable, "id: %x",
+                              pdeteil->user_id);
+            textShowString(proTable, pro_len);
+        }
+        break;
     default:
         {
             tc_send(CMD_TOOL_SCAN, CMD_STATUS_UNKNOWN, NULL, 0);
@@ -686,4 +694,9 @@ void BLE_TOOLS::on_restart_record_clicked()
 void BLE_TOOLS::on_getalgoparam_clicked()
 {
     tc_get_algo_param();
+}
+
+void BLE_TOOLS::on_getuserid_clicked()
+{
+    tc_get_user_id();
 }

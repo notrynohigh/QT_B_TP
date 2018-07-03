@@ -63,7 +63,9 @@ void tc_get_total_step(uint8_t month, uint8_t day)
 
 void tc_draw_wave_start()
 {
-    tc_send(CMD_DRAW_WAVE_START, 0, NULL, 0);
+    pro_draw_wave_type_t dr;
+    dr.type = 0;
+    tc_send(CMD_DRAW_WAVE_START, 0, (uint8_t *)&dr, sizeof(pro_draw_wave_type_t));
 }
 
 void tc_draw_wave_stop()
@@ -189,6 +191,9 @@ void tc_get_algo_param()
     tc_send(CMD_GET_ALGO_PARAM, 0, NULL, 0);
 }
 
-
+void tc_get_user_id()
+{
+    tc_send(CMD_GET_USER_ID, 0, NULL, 0);
+}
 
 
