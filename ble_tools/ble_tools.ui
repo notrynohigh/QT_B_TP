@@ -35,6 +35,9 @@
    <iconset resource="icon.qrc">
     <normaloff>:/Icon/resources/ble_icon.png</normaloff>:/Icon/resources/ble_icon.png</iconset>
   </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -55,7 +58,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Refresh</string>
+        <string>刷新端口</string>
        </property>
       </widget>
      </item>
@@ -69,7 +72,7 @@
      <item>
       <widget class="QPushButton" name="opencom">
        <property name="text">
-        <string>Open</string>
+        <string>打开串口</string>
        </property>
       </widget>
      </item>
@@ -79,98 +82,20 @@
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>20</y>
-      <width>591</width>
-      <height>181</height>
+      <y>10</y>
+      <width>1051</width>
+      <height>191</height>
      </rect>
     </property>
     <property name="title">
      <string>指令测试</string>
     </property>
-    <widget class="QPushButton" name="setDate">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>20</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>设置时间</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="getdata">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>50</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>获取时间</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="version">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>80</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>获取版本号</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="AdjustChip">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>110</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>芯片校准</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="wave">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>140</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>绘制波形</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="StopDrawWave">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>140</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>绘制波形停止</string>
-     </property>
-    </widget>
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>220</x>
+       <x>580</x>
        <y>20</y>
-       <width>181</width>
+       <width>192</width>
        <height>151</height>
       </rect>
      </property>
@@ -204,92 +129,49 @@
     <widget class="QLabel" name="conn_label">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>110</y>
-       <width>91</width>
+       <x>810</x>
+       <y>40</y>
+       <width>131</width>
        <height>21</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Disconnected</string>
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
-    </widget>
-    <widget class="QPushButton" name="RT_START">
-     <property name="geometry">
-      <rect>
-       <x>450</x>
-       <y>20</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
+     <property name="styleSheet">
+      <string notr="true">QLabel{color:rgb(255, 0, 0)}</string>
      </property>
      <property name="text">
-      <string>开启实时模式</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="RT_END">
-     <property name="geometry">
-      <rect>
-       <x>450</x>
-       <y>60</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>实时模式结束</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="battery">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>20</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>电池电量</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="breakdown">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>50</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>硬件检测</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="restart">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>80</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>重启</string>
+      <string>连接断开......</string>
      </property>
     </widget>
     <widget class="QRadioButton" name="namefilter">
      <property name="geometry">
       <rect>
-       <x>440</x>
-       <y>140</y>
-       <width>111</width>
-       <height>31</height>
+       <x>800</x>
+       <y>80</y>
+       <width>221</width>
+       <height>61</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="acceptDrops">
       <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgb(255, 0, 0)</string>
      </property>
      <property name="text">
       <string>扫描Odun_xxxx</string>
@@ -298,18 +180,145 @@
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="erase_chip">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>110</y>
-       <width>75</width>
-       <height>23</height>
+       <x>20</x>
+       <y>20</y>
+       <width>531</width>
+       <height>161</height>
       </rect>
      </property>
-     <property name="text">
-      <string>擦除FLASH</string>
-     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="setDate">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>设置时间</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="battery">
+        <property name="text">
+         <string>电池电量</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="resetid">
+        <property name="text">
+         <string>重置用户ID</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="getalgoparam">
+        <property name="text">
+         <string>获取算法参数</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="getdata">
+        <property name="text">
+         <string>获取时间</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="breakdown">
+        <property name="text">
+         <string>硬件检测</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="getuserid">
+        <property name="text">
+         <string>获取用户ID</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="restart_record">
+        <property name="text">
+         <string>获取重启记录</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="version">
+        <property name="text">
+         <string>获取版本号</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="restart">
+        <property name="text">
+         <string>重启</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="setID">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>设置用户ID</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QPushButton" name="wave">
+        <property name="text">
+         <string>绘制波形</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="AdjustChip">
+        <property name="text">
+         <string>芯片校准</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="erase_chip">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>擦除FLASH</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QPushButton" name="StopDrawWave">
+        <property name="text">
+         <string>绘制波形停止</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPushButton" name="RT_END">
+        <property name="text">
+         <string>实时模式结束</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="RT_START">
+        <property name="text">
+         <string>开启实时模式</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -328,14 +337,14 @@
      <item>
       <widget class="QPushButton" name="scan">
        <property name="text">
-        <string>Scan</string>
+        <string>开始扫描</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="clear_list">
        <property name="text">
-        <string>Clear</string>
+        <string>清除扫描记录</string>
        </property>
       </widget>
      </item>
@@ -357,7 +366,7 @@
      <item>
       <widget class="QPushButton" name="clear_log">
        <property name="text">
-        <string>Clear</string>
+        <string>清除通讯记录</string>
        </property>
       </widget>
      </item>
@@ -379,7 +388,7 @@
      <item>
       <widget class="QPushButton" name="clear_proto_result">
        <property name="text">
-        <string>Clear</string>
+        <string>清除解析数据</string>
        </property>
       </widget>
      </item>
@@ -401,76 +410,11 @@
      <item>
       <widget class="QPushButton" name="savemac">
        <property name="text">
-        <string>Save</string>
+        <string>保存MAC地址到文件</string>
        </property>
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QPushButton" name="resetid">
-    <property name="geometry">
-     <rect>
-      <x>1030</x>
-      <y>50</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ResetId</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="setID">
-    <property name="geometry">
-     <rect>
-      <x>1030</x>
-      <y>100</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>SetId</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="restart_record">
-    <property name="geometry">
-     <rect>
-      <x>1030</x>
-      <y>140</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>GetRestart</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="getalgoparam">
-    <property name="geometry">
-     <rect>
-      <x>1034</x>
-      <y>10</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>GetAlgoParam</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="getuserid">
-    <property name="geometry">
-     <rect>
-      <x>1030</x>
-      <y>180</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>GetUserId</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

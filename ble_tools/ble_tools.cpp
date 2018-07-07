@@ -62,14 +62,14 @@ void BLE_TOOLS::on_opencom_clicked()
     {
         uartModule.uartClosePort();
         ui->COMx->setEnabled(true);
-        ui->opencom->setText("Open");
+        ui->opencom->setText("打开串口");
     }
     else
     {
         if(uartModule.uartOpenPort(ui->COMx->currentText()))
         {
             ui->COMx->setEnabled(false);
-            ui->opencom->setText("Close");
+            ui->opencom->setText("关闭串口");
             tc_get_connect_status();
         }
     }
@@ -79,9 +79,9 @@ void BLE_TOOLS::on_scan_clicked()
 {
     if(uartModule.uartGetOpenStatus())
     {
-        if(ui->scan->text() == "Scan")
+        if(ui->scan->text() == "开始扫描")
         {
-            ui->scan->setText("Stop");
+            ui->scan->setText("停止扫描");
             tc_scan_start();
             if(ui->namefilter->isChecked())
             {
@@ -95,7 +95,7 @@ void BLE_TOOLS::on_scan_clicked()
         }
         else
         {
-            ui->scan->setText("Scan");
+            ui->scan->setText("开始扫描");
             tc_scan_stop();
             if(ui->namefilter->isChecked())
             {
@@ -231,7 +231,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             pro_conn_sta_t *resp = (pro_conn_sta_t *)(result->buf);
             if(resp->status == 0x1)
             {
-                ui->conn_label->setText("Connected");
+                ui->conn_label->setText("连接成功......");
             }
             else if(resp->status == 0x2)
             {
@@ -243,7 +243,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             }
             else
             {
-                ui->conn_label->setText("Disconnected");
+                ui->conn_label->setText("连接断开......");
                 if(collect_status == 5 && collect_flag)
                 {
                     tc_scan_start();
