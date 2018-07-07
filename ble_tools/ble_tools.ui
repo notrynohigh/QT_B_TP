@@ -180,7 +180,7 @@
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -192,6 +192,9 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QPushButton" name="setDate">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -209,6 +212,9 @@
       </item>
       <item row="0" column="2">
        <widget class="QPushButton" name="resetid">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>重置用户ID</string>
         </property>
@@ -258,6 +264,9 @@
       </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="restart">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>重启</string>
         </property>
@@ -282,6 +291,9 @@
       </item>
       <item row="3" column="0">
        <widget class="QPushButton" name="AdjustChip">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>芯片校准</string>
         </property>

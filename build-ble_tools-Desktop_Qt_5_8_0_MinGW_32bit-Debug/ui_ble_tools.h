@@ -51,7 +51,7 @@ public:
     QPushButton *total_steps;
     QLabel *conn_label;
     QRadioButton *namefilter;
-    QWidget *widget;
+    QWidget *layoutWidget2;
     QGridLayout *gridLayout;
     QPushButton *setDate;
     QPushButton *battery;
@@ -70,20 +70,20 @@ public:
     QPushButton *StopDrawWave;
     QPushButton *RT_END;
     QPushButton *RT_START;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout;
     QListWidget *listWidget;
     QPushButton *scan;
     QPushButton *clear_list;
-    QWidget *layoutWidget3;
+    QWidget *layoutWidget4;
     QVBoxLayout *verticalLayout_2;
     QTextEdit *uartRecText;
     QPushButton *clear_log;
-    QWidget *layoutWidget4;
+    QWidget *layoutWidget5;
     QVBoxLayout *verticalLayout_4;
     QTextEdit *protocol_result;
     QPushButton *clear_proto_result;
-    QWidget *layoutWidget5;
+    QWidget *layoutWidget6;
     QVBoxLayout *verticalLayout_5;
     QListWidget *mac_list;
     QPushButton *savemac;
@@ -191,175 +191,179 @@ public:
         namefilter->setAcceptDrops(false);
         namefilter->setStyleSheet(QStringLiteral("color:rgb(255, 0, 0)"));
         namefilter->setChecked(false);
-        widget = new QWidget(Cmd);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(20, 20, 531, 161));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget2 = new QWidget(Cmd);
+        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(20, 20, 531, 161));
+        gridLayout = new QGridLayout(layoutWidget2);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        setDate = new QPushButton(widget);
+        setDate = new QPushButton(layoutWidget2);
         setDate->setObjectName(QStringLiteral("setDate"));
+        setDate->setEnabled(false);
         setDate->setStyleSheet(QStringLiteral(""));
 
         gridLayout->addWidget(setDate, 0, 0, 1, 1);
 
-        battery = new QPushButton(widget);
+        battery = new QPushButton(layoutWidget2);
         battery->setObjectName(QStringLiteral("battery"));
 
         gridLayout->addWidget(battery, 0, 1, 1, 1);
 
-        resetid = new QPushButton(widget);
+        resetid = new QPushButton(layoutWidget2);
         resetid->setObjectName(QStringLiteral("resetid"));
+        resetid->setEnabled(false);
 
         gridLayout->addWidget(resetid, 0, 2, 1, 1);
 
-        getalgoparam = new QPushButton(widget);
+        getalgoparam = new QPushButton(layoutWidget2);
         getalgoparam->setObjectName(QStringLiteral("getalgoparam"));
 
         gridLayout->addWidget(getalgoparam, 0, 3, 1, 1);
 
-        getdata = new QPushButton(widget);
+        getdata = new QPushButton(layoutWidget2);
         getdata->setObjectName(QStringLiteral("getdata"));
 
         gridLayout->addWidget(getdata, 1, 0, 1, 1);
 
-        breakdown = new QPushButton(widget);
+        breakdown = new QPushButton(layoutWidget2);
         breakdown->setObjectName(QStringLiteral("breakdown"));
 
         gridLayout->addWidget(breakdown, 1, 1, 1, 1);
 
-        getuserid = new QPushButton(widget);
+        getuserid = new QPushButton(layoutWidget2);
         getuserid->setObjectName(QStringLiteral("getuserid"));
 
         gridLayout->addWidget(getuserid, 1, 2, 1, 1);
 
-        restart_record = new QPushButton(widget);
+        restart_record = new QPushButton(layoutWidget2);
         restart_record->setObjectName(QStringLiteral("restart_record"));
 
         gridLayout->addWidget(restart_record, 1, 3, 1, 1);
 
-        version = new QPushButton(widget);
+        version = new QPushButton(layoutWidget2);
         version->setObjectName(QStringLiteral("version"));
 
         gridLayout->addWidget(version, 2, 0, 1, 1);
 
-        restart = new QPushButton(widget);
+        restart = new QPushButton(layoutWidget2);
         restart->setObjectName(QStringLiteral("restart"));
+        restart->setEnabled(false);
 
         gridLayout->addWidget(restart, 2, 1, 1, 1);
 
-        setID = new QPushButton(widget);
+        setID = new QPushButton(layoutWidget2);
         setID->setObjectName(QStringLiteral("setID"));
         setID->setEnabled(false);
 
         gridLayout->addWidget(setID, 2, 2, 1, 1);
 
-        wave = new QPushButton(widget);
+        wave = new QPushButton(layoutWidget2);
         wave->setObjectName(QStringLiteral("wave"));
 
         gridLayout->addWidget(wave, 2, 3, 1, 1);
 
-        AdjustChip = new QPushButton(widget);
+        AdjustChip = new QPushButton(layoutWidget2);
         AdjustChip->setObjectName(QStringLiteral("AdjustChip"));
+        AdjustChip->setEnabled(false);
 
         gridLayout->addWidget(AdjustChip, 3, 0, 1, 1);
 
-        erase_chip = new QPushButton(widget);
+        erase_chip = new QPushButton(layoutWidget2);
         erase_chip->setObjectName(QStringLiteral("erase_chip"));
         erase_chip->setEnabled(false);
 
         gridLayout->addWidget(erase_chip, 3, 1, 1, 1);
 
-        StopDrawWave = new QPushButton(widget);
+        StopDrawWave = new QPushButton(layoutWidget2);
         StopDrawWave->setObjectName(QStringLiteral("StopDrawWave"));
 
         gridLayout->addWidget(StopDrawWave, 3, 3, 1, 1);
 
-        RT_END = new QPushButton(widget);
+        RT_END = new QPushButton(layoutWidget2);
         RT_END->setObjectName(QStringLiteral("RT_END"));
 
         gridLayout->addWidget(RT_END, 4, 0, 1, 1);
 
-        RT_START = new QPushButton(widget);
+        RT_START = new QPushButton(layoutWidget2);
         RT_START->setObjectName(QStringLiteral("RT_START"));
 
         gridLayout->addWidget(RT_START, 4, 1, 1, 1);
 
-        layoutWidget2 = new QWidget(centralWidget);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(34, 62, 331, 311));
-        verticalLayout = new QVBoxLayout(layoutWidget2);
+        layoutWidget3 = new QWidget(centralWidget);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(34, 62, 331, 311));
+        verticalLayout = new QVBoxLayout(layoutWidget3);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        listWidget = new QListWidget(layoutWidget2);
+        listWidget = new QListWidget(layoutWidget3);
         listWidget->setObjectName(QStringLiteral("listWidget"));
 
         verticalLayout->addWidget(listWidget);
 
-        scan = new QPushButton(layoutWidget2);
+        scan = new QPushButton(layoutWidget3);
         scan->setObjectName(QStringLiteral("scan"));
 
         verticalLayout->addWidget(scan);
 
-        clear_list = new QPushButton(layoutWidget2);
+        clear_list = new QPushButton(layoutWidget3);
         clear_list->setObjectName(QStringLiteral("clear_list"));
 
         verticalLayout->addWidget(clear_list);
 
-        layoutWidget3 = new QWidget(centralWidget);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(30, 380, 331, 301));
-        verticalLayout_2 = new QVBoxLayout(layoutWidget3);
+        layoutWidget4 = new QWidget(centralWidget);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(30, 380, 331, 301));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget4);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        uartRecText = new QTextEdit(layoutWidget3);
+        uartRecText = new QTextEdit(layoutWidget4);
         uartRecText->setObjectName(QStringLiteral("uartRecText"));
 
         verticalLayout_2->addWidget(uartRecText);
 
-        clear_log = new QPushButton(layoutWidget3);
+        clear_log = new QPushButton(layoutWidget4);
         clear_log->setObjectName(QStringLiteral("clear_log"));
 
         verticalLayout_2->addWidget(clear_log);
 
-        layoutWidget4 = new QWidget(centralWidget);
-        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(420, 220, 1061, 251));
-        verticalLayout_4 = new QVBoxLayout(layoutWidget4);
+        layoutWidget5 = new QWidget(centralWidget);
+        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(420, 220, 1061, 251));
+        verticalLayout_4 = new QVBoxLayout(layoutWidget5);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        protocol_result = new QTextEdit(layoutWidget4);
+        protocol_result = new QTextEdit(layoutWidget5);
         protocol_result->setObjectName(QStringLiteral("protocol_result"));
 
         verticalLayout_4->addWidget(protocol_result);
 
-        clear_proto_result = new QPushButton(layoutWidget4);
+        clear_proto_result = new QPushButton(layoutWidget5);
         clear_proto_result->setObjectName(QStringLiteral("clear_proto_result"));
 
         verticalLayout_4->addWidget(clear_proto_result);
 
-        layoutWidget5 = new QWidget(centralWidget);
-        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(420, 490, 1061, 201));
-        verticalLayout_5 = new QVBoxLayout(layoutWidget5);
+        layoutWidget6 = new QWidget(centralWidget);
+        layoutWidget6->setObjectName(QStringLiteral("layoutWidget6"));
+        layoutWidget6->setGeometry(QRect(420, 490, 1061, 201));
+        verticalLayout_5 = new QVBoxLayout(layoutWidget6);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
-        mac_list = new QListWidget(layoutWidget5);
+        mac_list = new QListWidget(layoutWidget6);
         mac_list->setObjectName(QStringLiteral("mac_list"));
 
         verticalLayout_5->addWidget(mac_list);
 
-        savemac = new QPushButton(layoutWidget5);
+        savemac = new QPushButton(layoutWidget6);
         savemac->setObjectName(QStringLiteral("savemac"));
 
         verticalLayout_5->addWidget(savemac);
