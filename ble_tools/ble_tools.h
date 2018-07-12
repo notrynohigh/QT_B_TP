@@ -39,49 +39,10 @@ private slots:
 
     void on_refresh_com_clicked();
 
-    void on_setDate_clicked();
-
-    void on_getdata_clicked();
-
-    void on_version_clicked();
-
-    void on_total_steps_clicked();
-
-    void on_wave_clicked();
-
-    void on_StopDrawWave_clicked();
-
-    void on_AdjustChip_clicked();
-
     void on_clear_proto_result_clicked();
-
-    void on_updateRun_clicked();
-
-    void on_updateWalk_clicked();
-
-    void on_RT_START_clicked();
-
-    void on_RT_END_clicked();
-
-    void on_battery_clicked();
-
-    void on_breakdown_clicked();
-
-    void on_restart_clicked();
-
-    void on_erase_chip_clicked();
 
     void on_savemac_clicked();
 
-    void on_setID_clicked();
-
-    void on_resetid_clicked();
-
-    void on_restart_record_clicked();
-
-    void on_getalgoparam_clicked();
-
-    void on_getuserid_clicked();
 
 private:
     Ui::BLE_TOOLS *ui;

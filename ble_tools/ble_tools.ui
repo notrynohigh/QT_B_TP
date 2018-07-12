@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1500</width>
-    <height>759</height>
+    <width>750</width>
+    <height>804</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1500</width>
-    <height>759</height>
+    <width>750</width>
+    <height>804</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1500</width>
-    <height>759</height>
+    <width>750</width>
+    <height>804</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -78,261 +78,6 @@
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="Cmd">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>10</y>
-      <width>1051</width>
-      <height>191</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>指令测试</string>
-    </property>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>580</x>
-       <y>20</y>
-       <width>192</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QDateEdit" name="total_step_time"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="updateRun">
-        <property name="text">
-         <string>同步跑步数据</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="updateWalk">
-        <property name="text">
-         <string>同步走路数据</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="total_steps">
-        <property name="text">
-         <string>获取总步数</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QLabel" name="conn_label">
-     <property name="geometry">
-      <rect>
-       <x>810</x>
-       <y>40</y>
-       <width>131</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel{color:rgb(255, 0, 0)}</string>
-     </property>
-     <property name="text">
-      <string>连接断开......</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="namefilter">
-     <property name="geometry">
-      <rect>
-       <x>800</x>
-       <y>80</y>
-       <width>221</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>微软雅黑</family>
-       <pointsize>18</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="acceptDrops">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color:rgb(255, 0, 0)</string>
-     </property>
-     <property name="text">
-      <string>扫描Odun_xxxx</string>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>531</width>
-       <height>161</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QPushButton" name="setDate">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>设置时间</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="battery">
-        <property name="text">
-         <string>电池电量</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="resetid">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>重置用户ID</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="getalgoparam">
-        <property name="text">
-         <string>获取算法参数</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QPushButton" name="getdata">
-        <property name="text">
-         <string>获取时间</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="breakdown">
-        <property name="text">
-         <string>硬件检测</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="getuserid">
-        <property name="text">
-         <string>获取用户ID</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QPushButton" name="restart_record">
-        <property name="text">
-         <string>获取重启记录</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="version">
-        <property name="text">
-         <string>获取版本号</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="restart">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>重启</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="setID">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>设置用户ID</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QPushButton" name="wave">
-        <property name="text">
-         <string>绘制波形</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QPushButton" name="AdjustChip">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>芯片校准</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="erase_chip">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>擦除FLASH</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="3">
-       <widget class="QPushButton" name="StopDrawWave">
-        <property name="text">
-         <string>绘制波形停止</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QPushButton" name="RT_END">
-        <property name="text">
-         <string>实时模式结束</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QPushButton" name="RT_START">
-        <property name="text">
-         <string>开启实时模式</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -367,30 +112,8 @@
      <rect>
       <x>30</x>
       <y>380</y>
-      <width>331</width>
-      <height>301</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QTextEdit" name="uartRecText"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="clear_log">
-       <property name="text">
-        <string>清除通讯记录</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>220</y>
-      <width>1061</width>
-      <height>251</height>
+      <width>341</width>
+      <height>311</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -409,10 +132,10 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>490</y>
-      <width>1061</width>
-      <height>201</height>
+      <x>400</x>
+      <y>60</y>
+      <width>321</width>
+      <height>631</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -428,13 +151,88 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>705</y>
+      <width>561</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;深圳市欧盾智能科技有限公司 &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;www.runstep.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;www.runstep.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ok_number">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>20</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>正常设备数量：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ok_number_txt">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>20</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0000000</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="err_number">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>20</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>故障设备数量：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="err_number_txt">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>20</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0000000</string>
+    </property>
+   </widget>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>protocol_result</zorder>
+   <zorder>label</zorder>
+   <zorder>ok_number</zorder>
+   <zorder>ok_number_txt</zorder>
+   <zorder>err_number</zorder>
+   <zorder>err_number_txt</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1500</width>
+     <width>750</width>
      <height>23</height>
     </rect>
    </property>

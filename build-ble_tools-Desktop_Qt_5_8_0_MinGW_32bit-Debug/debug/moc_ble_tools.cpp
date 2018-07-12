@@ -175,28 +175,8 @@ void BLE_TOOLS::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 4: _t->on_listWidget_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
         case 5: _t->on_clear_log_clicked(); break;
         case 6: _t->on_refresh_com_clicked(); break;
-        case 7: _t->on_setDate_clicked(); break;
-        case 8: _t->on_getdata_clicked(); break;
-        case 9: _t->on_version_clicked(); break;
-        case 10: _t->on_total_steps_clicked(); break;
-        case 11: _t->on_wave_clicked(); break;
-        case 12: _t->on_StopDrawWave_clicked(); break;
-        case 13: _t->on_AdjustChip_clicked(); break;
         case 14: _t->on_clear_proto_result_clicked(); break;
-        case 15: _t->on_updateRun_clicked(); break;
-        case 16: _t->on_updateWalk_clicked(); break;
-        case 17: _t->on_RT_START_clicked(); break;
-        case 18: _t->on_RT_END_clicked(); break;
-        case 19: _t->on_battery_clicked(); break;
-        case 20: _t->on_breakdown_clicked(); break;
-        case 21: _t->on_restart_clicked(); break;
-        case 22: _t->on_erase_chip_clicked(); break;
         case 23: _t->on_savemac_clicked(); break;
-        case 24: _t->on_setID_clicked(); break;
-        case 25: _t->on_resetid_clicked(); break;
-        case 26: _t->on_restart_record_clicked(); break;
-        case 27: _t->on_getalgoparam_clicked(); break;
-        case 28: _t->on_getuserid_clicked(); break;
         default: ;
         }
     }
