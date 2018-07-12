@@ -201,7 +201,7 @@ public:
         gridLayout->setContentsMargins(0, 0, 0, 0);
         setDate = new QPushButton(layoutWidget2);
         setDate->setObjectName(QStringLiteral("setDate"));
-        setDate->setEnabled(false);
+        setDate->setEnabled(true);
         setDate->setStyleSheet(QStringLiteral(""));
 
         gridLayout->addWidget(setDate, 0, 0, 1, 1);
@@ -213,7 +213,7 @@ public:
 
         resetid = new QPushButton(layoutWidget2);
         resetid->setObjectName(QStringLiteral("resetid"));
-        resetid->setEnabled(false);
+        resetid->setEnabled(true);
 
         gridLayout->addWidget(resetid, 0, 2, 1, 1);
 
@@ -249,13 +249,13 @@ public:
 
         restart = new QPushButton(layoutWidget2);
         restart->setObjectName(QStringLiteral("restart"));
-        restart->setEnabled(false);
+        restart->setEnabled(true);
 
         gridLayout->addWidget(restart, 2, 1, 1, 1);
 
         setID = new QPushButton(layoutWidget2);
         setID->setObjectName(QStringLiteral("setID"));
-        setID->setEnabled(false);
+        setID->setEnabled(true);
 
         gridLayout->addWidget(setID, 2, 2, 1, 1);
 
@@ -266,13 +266,13 @@ public:
 
         AdjustChip = new QPushButton(layoutWidget2);
         AdjustChip->setObjectName(QStringLiteral("AdjustChip"));
-        AdjustChip->setEnabled(false);
+        AdjustChip->setEnabled(true);
 
         gridLayout->addWidget(AdjustChip, 3, 0, 1, 1);
 
         erase_chip = new QPushButton(layoutWidget2);
         erase_chip->setObjectName(QStringLiteral("erase_chip"));
-        erase_chip->setEnabled(false);
+        erase_chip->setEnabled(true);
 
         gridLayout->addWidget(erase_chip, 3, 1, 1, 1);
 
