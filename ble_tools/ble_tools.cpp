@@ -83,7 +83,7 @@ void BLE_TOOLS::on_scan_clicked()
         {
             ui->scan->setText("停止扫描");
             tc_scan_start();
-            if(ui->namefilter->isChecked())
+            if(0)
             {
                 collect_flag = true;
                 collect_status = 1;
@@ -97,7 +97,7 @@ void BLE_TOOLS::on_scan_clicked()
         {
             ui->scan->setText("开始扫描");
             tc_scan_stop();
-            if(ui->namefilter->isChecked())
+            if(0)
             {
                 collect_flag = false;
                 collect_status = 0;
@@ -128,7 +128,9 @@ void BLE_TOOLS::timer_timeout()
     if(time20ms_count > 50)
     {
         time20ms_count = 0;
-        tc_send_hb();
+        if(ui->conn_label->text() == "连接成功......")
+        {tc_send_hb();}
+
         updateBleDevList();
     }
 
@@ -325,22 +327,11 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
         break;
     case CMD_SYN_WALK_DATA:
         {
-            if(result->status == CMD_STATUS_SUCCESS || result->status == CMD_STATUS_LAST_ONE)
-            {
                 pro_syn_walk_response_t *respversion = (pro_syn_walk_response_t *)(result->buf);
-                off_2 = STRUCT_OFF(pro_syn_walk_response_t, walk_info);
-                uint8_t j = 0, i = (len - off - off_2) / sizeof(pro_walk_info_t);
-                for(j = 0;j < i;j++)
-                {
-                    pro_len = sprintf((char *)proTable, "%02d-%02d\t%02d:%02d\t%d\t%d\t%d\t%d\t%d\t%d\t%d",
-                                      respversion->month, respversion->day,
-                                      respversion->walk_info[j].hour, respversion->walk_info[j].minute, respversion->walk_info[j].total_step, respversion->walk_info[j].slow_walk_step,
-                                      respversion->walk_info[j].fast_walk_step, respversion->walk_info[j].run_step, respversion->walk_info[j].inside_step, respversion->walk_info[j].outside_step,
-                                      respversion->walk_info[j].normal_step);
-                    textShowString(proTable, pro_len);
-                }
-                tc_syn_walk_go_on();
-            }
+                pro_len = sprintf((char *)proTable, "%02d-%02d\t%d\t%d",
+                                  respversion->month, respversion->day,
+                                  respversion->id, respversion->step);
+                textShowString(proTable, pro_len);
         }
         break;
     case CMD_SYN_RUN_DATA:
@@ -438,8 +429,6 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
                     {
                         tmp_table[i] = g_tmp_dev.addr[5 - i];
                     }
-                    QString str1 = QByteArray::fromRawData((const char *)(tmp_table), 6).toHex().data();
-                    ui->mac_list->addItem(str1);
                     tc_set_normal_mode();
                 }
                 else
@@ -523,22 +512,7 @@ void BLE_TOOLS::on_clear_list_clicked()
 
 void BLE_TOOLS::save_mac()
 {
-    QFile file("C:\\Odun_mac.txt");
-    if(! file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
-    {
-        textShowString((uint8_t *)"failed to open file", 19);
-        return;
-    }
-    int len = ui->mac_list->count();
-    QString item_text;
-    for(int i = 0;i < len;i++)
-    {
-        item_text = ui->mac_list->item(i)->text();
-        item_text += "\r\n";
-        file.write((const char *)item_text.toLocal8Bit());
-    }
-    file.close();
-    textShowString((uint8_t *)"save successfully", 17);
+
 }
 
 
@@ -632,7 +606,7 @@ void BLE_TOOLS::on_updateWalk_clicked()
     int year, month, day;
     uint8_t tmp_table[128];
     uint32_t tmp_len = 0;
-    tmp_len = sprintf((char *)tmp_table, "date\ttime\ttotal\tslow\tfast\trun\tinside\toutside\tnormal");
+    tmp_len = sprintf((char *)tmp_table, "date\tid\tstep");
     textShowString(tmp_table, tmp_len);
 
     ui->total_step_time->date().getDate(&year, &month, &day);
@@ -672,8 +646,7 @@ void BLE_TOOLS::on_erase_chip_clicked()
 
 void BLE_TOOLS::on_savemac_clicked()
 {
-    save_mac();
-    ui->mac_list->clear();
+
 }
 
 void BLE_TOOLS::on_setID_clicked()
@@ -699,4 +672,14 @@ void BLE_TOOLS::on_getalgoparam_clicked()
 void BLE_TOOLS::on_getuserid_clicked()
 {
     tc_get_user_id();
+}
+
+void BLE_TOOLS::on_bridge_start_clicked()
+{
+    tc_bridge_start();
+}
+
+void BLE_TOOLS::on_terminal_mode_clicked()
+{
+    tc_bridge_end();
 }

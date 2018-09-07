@@ -19,10 +19,10 @@ extern "C" {
 #define CMD_VERSION             0X01
 #define CMD_BATTERY             0X02
 #define CMD_SET_USER_ID         0X03
-#define CMD_SET_TIME            0X04
-#define CMD_GET_TIME            0X05
+#define CMD_SET_TIME            0XA3
+#define CMD_GET_TIME            0XA4
 #define CMD_GET_TOTAL_STEP      0X06
-#define CMD_SYN_WALK_DATA       0X07
+#define CMD_SYN_WALK_DATA       0XA7
 #define CMD_SYN_RUN_DATA        0X08
 #define CMD_RT_RUN_START        0X09
 #define CMD_RT_RUN_STOP         0X0A
@@ -51,6 +51,10 @@ extern "C" {
 #define CMD_TOOL_SCAN           0XA0
 #define CMD_TOOL_CONNECT        0XA1
 #define CMD_TOOL_CONN_STA       0XA2
+
+#define CMD_BRIDGE_START        0XA5
+#define CMD_BRIDGE_END          0XA6
+
 /**
  * @}
  */
@@ -169,24 +173,15 @@ typedef struct
 {
     uint8_t  month;
     uint8_t  day;
-    uint8_t  s_hour;
-    uint8_t  s_minute;
-    uint8_t  e_hour;
-    uint8_t  e_minute;
 }pro_syn_require_t;
 
 /** CMD_SYN_WALK_DATA */
 typedef struct
 {
-    uint8_t  hour;
-    uint8_t  minute;
-    uint16_t total_step;
-    uint16_t slow_walk_step;
-    uint16_t fast_walk_step;
-    uint16_t run_step;
-    uint16_t inside_step;
-    uint16_t outside_step;
-    uint16_t normal_step;
+    uint8_t  month;
+    uint8_t  day;
+    uint32_t id;
+    uint32_t step;
 }pro_walk_info_t;
 
 
@@ -195,7 +190,8 @@ typedef struct
 {
     uint8_t  month;
     uint8_t  day;
-    pro_walk_info_t walk_info[PROTO_SYN_WALK_PER_NUMBER];
+    uint32_t id;
+    uint32_t step;
 }pro_syn_walk_response_t;
 
 
@@ -455,6 +451,10 @@ void tc_syn_err_go_on();
 
 void tc_get_algo_param();
 void tc_get_user_id();
+
+void tc_bridge_start();
+void tc_bridge_end();
+
 #ifdef __cplusplus
 }
 #endif

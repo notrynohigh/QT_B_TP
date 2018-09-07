@@ -84,11 +84,6 @@ void tc_syn_walk_step(uint8_t month, uint8_t day, uint8_t s_hour, uint8_t s_minu
     pro_syn_require_t sys_req;
     sys_req.month = month;
     sys_req.day = day;
-    sys_req.s_hour = s_hour;
-    sys_req.e_hour = e_hour;
-    sys_req.e_minute = e_minute;
-    sys_req.s_minute = s_minute;
-
     tc_send(CMD_SYN_WALK_DATA, 0, (uint8_t *)&sys_req, sizeof(pro_syn_require_t));
 }
 
@@ -105,15 +100,7 @@ void tc_syn_err_go_on()
 
 void tc_syn_run_step(uint8_t month, uint8_t day, uint8_t s_hour, uint8_t s_minute, uint8_t e_hour, uint8_t e_minute)
 {
-    pro_syn_require_t sys_req;
-    sys_req.month = month;
-    sys_req.day = day;
-    sys_req.s_hour = s_hour;
-    sys_req.e_hour = e_hour;
-    sys_req.e_minute = e_minute;
-    sys_req.s_minute = s_minute;
 
-    tc_send(CMD_SYN_RUN_DATA, 0, (uint8_t *)&sys_req, sizeof(pro_syn_require_t));
 }
 
 
@@ -166,9 +153,14 @@ void tc_erase_chip()
     tc_send(CMD_ERASE_CHIP, 0, NULL, 0);
 }
 
+uint8_t bridge_flag = 1;
+
 void tc_send_hb()
 {
-    tc_send(CMD_HEART, 0, NULL, 0);
+    if(bridge_flag)
+    {
+        tc_send(CMD_HEART, 0, NULL, 0);
+    }
 }
 
 
@@ -196,4 +188,16 @@ void tc_get_user_id()
     tc_send(CMD_GET_USER_ID, 0, NULL, 0);
 }
 
+void tc_bridge_start()
+{
+    bridge_flag = 1;
+    tc_send(CMD_BRIDGE_START, 0, NULL, 0);
+}
+
+
+void tc_bridge_end()
+{
+    bridge_flag = 0;
+    tc_send(CMD_BRIDGE_END, 0, NULL, 0);
+}
 
