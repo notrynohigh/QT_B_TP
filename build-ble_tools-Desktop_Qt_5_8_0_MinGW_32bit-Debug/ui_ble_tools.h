@@ -69,6 +69,7 @@ public:
     QVBoxLayout *verticalLayout_4;
     QTextEdit *protocol_result;
     QPushButton *clear_proto_result;
+    QLabel *label;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -256,6 +257,9 @@ public:
 
         verticalLayout_4->addWidget(clear_proto_result);
 
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(480, 680, 281, 21));
         BLE_TOOLS->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BLE_TOOLS);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -292,6 +296,7 @@ public:
         clear_list->setText(QApplication::translate("BLE_TOOLS", "\346\270\205\351\231\244\346\211\253\346\217\217\350\256\260\345\275\225", Q_NULLPTR));
         clear_log->setText(QApplication::translate("BLE_TOOLS", "\346\270\205\351\231\244\351\200\232\350\256\257\350\256\260\345\275\225", Q_NULLPTR));
         clear_proto_result->setText(QApplication::translate("BLE_TOOLS", "\346\270\205\351\231\244\350\247\243\346\236\220\346\225\260\346\215\256", Q_NULLPTR));
+        label->setText(QApplication::translate("BLE_TOOLS", "liklon\347\216\251GD32F350 \351\222\210\345\257\271\346\231\272\350\203\275\350\267\221\351\236\213\347\232\204\350\223\235\347\211\231\345\237\272\347\253\231", Q_NULLPTR));
     } // retranslateUi
 
 };
