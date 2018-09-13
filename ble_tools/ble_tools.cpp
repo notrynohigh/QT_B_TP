@@ -241,7 +241,7 @@ void BLE_TOOLS::dispatch_cmd(uint8_t *pbuf, uint32_t len)
             else
             {
                 //ui->conn_label->setText("连接断开......");
-                if(collect_status == 5 && collect_flag)
+                if(collect_flag)
                 {
                     tc_scan_start();
                     collect_status = 1;
