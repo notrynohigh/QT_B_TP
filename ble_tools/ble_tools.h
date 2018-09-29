@@ -83,6 +83,10 @@ private slots:
 
     void on_getuserid_clicked();
 
+    void on_rp_start_clicked();
+
+    void on_rp_end_clicked();
+
 private:
     Ui::BLE_TOOLS *ui;
     QTimer *quartTimer;

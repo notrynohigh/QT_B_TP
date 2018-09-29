@@ -70,6 +70,8 @@ public:
     QPushButton *StopDrawWave;
     QPushButton *RT_END;
     QPushButton *RT_START;
+    QPushButton *rp_start;
+    QPushButton *rp_end;
     QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout;
     QListWidget *listWidget;
@@ -291,6 +293,16 @@ public:
 
         gridLayout->addWidget(RT_START, 4, 1, 1, 1);
 
+        rp_start = new QPushButton(layoutWidget2);
+        rp_start->setObjectName(QStringLiteral("rp_start"));
+
+        gridLayout->addWidget(rp_start, 4, 2, 1, 1);
+
+        rp_end = new QPushButton(layoutWidget2);
+        rp_end->setObjectName(QStringLiteral("rp_end"));
+
+        gridLayout->addWidget(rp_end, 4, 3, 1, 1);
+
         layoutWidget3 = new QWidget(centralWidget);
         layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
         layoutWidget3->setGeometry(QRect(34, 62, 331, 311));
@@ -413,6 +425,8 @@ public:
         StopDrawWave->setText(QApplication::translate("BLE_TOOLS", "\347\273\230\345\210\266\346\263\242\345\275\242\345\201\234\346\255\242", Q_NULLPTR));
         RT_END->setText(QApplication::translate("BLE_TOOLS", "\345\256\236\346\227\266\346\250\241\345\274\217\347\273\223\346\235\237", Q_NULLPTR));
         RT_START->setText(QApplication::translate("BLE_TOOLS", "\345\274\200\345\220\257\345\256\236\346\227\266\346\250\241\345\274\217", Q_NULLPTR));
+        rp_start->setText(QApplication::translate("BLE_TOOLS", "\346\210\230\346\226\227\347\273\263\345\274\200\345\247\213", Q_NULLPTR));
+        rp_end->setText(QApplication::translate("BLE_TOOLS", "\346\210\230\346\226\227\347\273\263\347\273\223\346\235\237", Q_NULLPTR));
         scan->setText(QApplication::translate("BLE_TOOLS", "\345\274\200\345\247\213\346\211\253\346\217\217", Q_NULLPTR));
         clear_list->setText(QApplication::translate("BLE_TOOLS", "\346\270\205\351\231\244\346\211\253\346\217\217\350\256\260\345\275\225", Q_NULLPTR));
         clear_log->setText(QApplication::translate("BLE_TOOLS", "\346\270\205\351\231\244\351\200\232\350\256\257\350\256\260\345\275\225", Q_NULLPTR));

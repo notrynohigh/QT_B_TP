@@ -196,4 +196,12 @@ void tc_get_user_id()
     tc_send(CMD_GET_USER_ID, 0, NULL, 0);
 }
 
+void tc_battle_rope_start()
+{
+    tc_send(CMD_BATTLE_ROPE_START, 0, NULL, 0);
+}
 
+void tc_battle_rope_end()
+{
+    tc_send(CMD_BATTLE_ROPE_END, 0, NULL, 0);
+}

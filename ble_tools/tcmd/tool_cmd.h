@@ -39,6 +39,9 @@ extern "C" {
 #define CMD_NOTIFY_MESSAGE      0X13
 #define CMD_GET_BREAKDOWN       0X14
 
+#define CMD_BATTLE_ROPE_START   0X15
+#define CMD_BATTLE_ROPE_END     0X16
+
 #define CMD_REBOOT              0X50
 #define CMD_ERASE_CHIP          0X51
 #define CMD_GET_ERR_INFO        0X52
@@ -455,6 +458,12 @@ void tc_syn_err_go_on();
 
 void tc_get_algo_param();
 void tc_get_user_id();
+
+
+void tc_battle_rope_start();
+void tc_battle_rope_end();
+
+
 #ifdef __cplusplus
 }
 #endif

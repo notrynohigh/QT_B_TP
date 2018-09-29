@@ -700,3 +700,15 @@ void BLE_TOOLS::on_getuserid_clicked()
 {
     tc_get_user_id();
 }
+
+void BLE_TOOLS::on_rp_start_clicked()
+{
+    tc_battle_rope_start();
+}
+
+
+
+void BLE_TOOLS::on_rp_end_clicked()
+{
+    tc_battle_rope_end();
+}
